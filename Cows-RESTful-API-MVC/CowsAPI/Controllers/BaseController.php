@@ -11,9 +11,10 @@ abstract class BaseController	{
 	protected $responseCode;
 	protected $statusCode;
 	
-	public final function __construct($view, $serviceFactory)	{
+	public final function __construct($view, $route, $serviceFactory)	{
 		$this->view = $view;
 		$this->serviceFactory = $serviceFactory;
+		$this->route = $route;	
 	}
 	
 	public function updateView()	{
