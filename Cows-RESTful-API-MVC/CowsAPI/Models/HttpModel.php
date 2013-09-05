@@ -1,10 +1,11 @@
 <?php
-namespace CowsApiModels;
+
+namespace CowsAPIModels;
 
 abstract class HttpModel	{
 	
-	private $curl;
-	private $method;
+	protected $curl;
+	protected $method;
 	
 	abstract function setParams();
 	
@@ -19,6 +20,6 @@ abstract class HttpModel	{
 	
 	public function execute()	{
 		$this->curl->setOption(CURLOPT_CUSTOMREQUEST, $method);
-		$this->curl->execute();
+		return $this->curl->execute();
 	}
 }
