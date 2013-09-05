@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="CowsAPI/Utility"/>
+	<buildpathentry kind="src" path="CowsAPI/Views"/>
+	<buildpathentry kind="src" path="vendor/phpunit/php-text-template/Text"/>
+	<buildpathentry kind="src" path="CowsAPI/Models"/>
+	<buildpathentry excluding="Utility/|Views/|Models/|Controllers/" kind="src" path="CowsAPI"/>
+	<buildpathentry excluding="CowsAPI/Utility/|CowsAPI/Views/|vendor/phpunit/php-text-template/Text/|CowsAPI/Models/|vendor/phpunit/php-file-iterator/File/|vendor/composer/|vendor/phpunit/php-token-stream/PHP/|vendor/simplepie/simplepie/library/|vendor/phpunit/phpunit-mock-objects/PHPUnit/|vendor/phpunit/php-code-coverage/PHP/|vendor/phpunit/phpunit/PHPUnit/|vendor/symfony/yaml/|CowsAPI/Controllers/|vendor/phpunit/php-timer/PHP/|vendor/|Test/|CowsAPI/" kind="src" path=""/>
+	<buildpathentry kind="src" path="vendor/phpunit/php-file-iterator/File"/>
+	<buildpathentry kind="src" path="vendor/composer"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry kind="src" path="vendor/phpunit/php-token-stream/PHP"/>
+	<buildpathentry kind="src" path="vendor/phpunit/phpunit-mock-objects/PHPUnit"/>
+	<buildpathentry kind="src" path="vendor/simplepie/simplepie/library"/>
+	<buildpathentry excluding="phpunit/php-text-template/Text/|phpunit/php-file-iterator/File/|composer/|phpunit/php-token-stream/PHP/|simplepie/simplepie/library/|phpunit/phpunit-mock-objects/PHPUnit/|phpunit/php-code-coverage/PHP/|phpunit/phpunit/PHPUnit/|symfony/yaml/|phpunit/php-timer/PHP/" kind="src" path="vendor"/>
+	<buildpathentry kind="src" path="vendor/phpunit/php-code-coverage/PHP"/>
+	<buildpathentry kind="src" path="vendor/phpunit/phpunit/PHPUnit"/>
+	<buildpathentry kind="src" path="vendor/symfony/yaml"/>
+	<buildpathentry kind="src" path="Test"/>
+	<buildpathentry kind="src" path="CowsAPI/Controllers"/>
+	<buildpathentry kind="src" path="vendor/phpunit/php-timer/PHP"/>
+</buildpath>

@@ -1,0 +1,21 @@
+{
+	"name" : "Cows-RESTful-API-MVC",
+	"description" : "a",
+	"keywords" : [
+		"a"
+	],
+	"homepage" : "a",
+	"require-dev" : {
+		"phpunit/phpunit" : "3.7.*",
+		"simplepie/simplepie" : "dev-master"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"CowsAPIModels" : "CowsAPI/Models",
+			"CowsAPIViews" : "CowsAPI/Views",
+			"CowsAPIUtility" : "CowsAPI/Utility",
+			"CowsAPITemplates" : "CowsAPI/Templates",
+			"CowsAPIControllers" : "CowsAPI/Controllers"
+		}
+	}
+}

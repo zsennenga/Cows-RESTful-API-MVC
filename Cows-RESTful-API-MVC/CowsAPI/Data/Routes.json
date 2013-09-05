@@ -1,0 +1,50 @@
+{
+    "session": [
+        {
+            "class": "Session",
+            "method": "DELETE",
+            "params" : [
+                "siteId"
+                ]
+        },
+        {
+            "class": "Session",
+            "method": "POST",
+            "params" : [
+                "siteId"
+                ]
+        }
+    ],
+    "event": [
+        {
+            "class": "Event",
+            "method": "POST",
+            "params" : [
+                "siteId"
+                ]
+        },
+        {
+            "class": "Event",
+            "method": "GET",
+            "params" : [
+                "siteId"
+                ]
+        },
+        {
+            "class": "Event",
+            "method": "DELETE",
+            "params" : [
+                "siteId",
+                "eventId"
+                ]
+        },
+        {
+            "class": "Event",
+            "method": "GET",
+            "params" : [
+                "siteId",
+                "eventId"
+                ]
+        }
+    ]
+}
