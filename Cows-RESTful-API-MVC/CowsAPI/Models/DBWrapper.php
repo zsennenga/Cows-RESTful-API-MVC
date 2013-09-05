@@ -1,5 +1,6 @@
 <?php
-namespace CowsAPIUtility;
+
+namespace CowsAPIModels;
 
 class DBWrapper implements \DBInterface	{
 	

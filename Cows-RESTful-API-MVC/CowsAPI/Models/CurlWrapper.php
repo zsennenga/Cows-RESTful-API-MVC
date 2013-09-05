@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPIUtility;
+namespace CowsAPIModels;
 
 class CurlWrapper implements \CurlInterface	{
 	private $handle = null;
