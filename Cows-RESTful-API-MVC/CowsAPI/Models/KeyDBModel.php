@@ -1,6 +1,8 @@
 <?php
 
-class KeyModel	{
+namespace CowsAPIModels;
+
+class KeyDBModel	{
 	private $db;
 	private $publicKey;
 	private $privateKey;
@@ -11,12 +13,16 @@ class KeyModel	{
 		$this->privateKey = null;
 	}
 	
-	public function setPublicKey($publicKey)	{
+	public function setActivePublicKey($publicKey)	{
 		$this->publicKey = $publicKey;
 	}
 	
 	public function getPublicKey()	{
 		return $this->publicKey;
+	}
+	
+	public function setCookieFile($cookie)	{
+		
 	}
 	
 	public function getCookieFile()	{
