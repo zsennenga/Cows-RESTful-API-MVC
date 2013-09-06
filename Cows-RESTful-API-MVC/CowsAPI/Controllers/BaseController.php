@@ -6,10 +6,7 @@ abstract class BaseController	{
 	
 	protected $route;
 	protected $serviceFactory;
-	
-	protected $message;
-	protected $responseCode;
-	protected $statusCode;
+	private $view;
 	
 	public final function __construct($view, $route, $serviceFactory)	{
 		$this->view = $view;
@@ -17,10 +14,9 @@ abstract class BaseController	{
 		$this->route = $route;	
 	}
 	
-	public function updateView()	{
-		if (isset($this->message)) $view->setMessage($this->message);
-		if (isset($this->responseCode)) $view->setResponse($this->responseCode);
-		if (isset($this->statusCode)) $view->setStatus($this->statusCode);
-		$view->setCallback($this->serviceFactory->getParam('callback'));
+	public function updateView($message = null, $responseCode = null, $statusCode = null)	{
+		if (isset($message)) $this->view->setMessage($message);
+		if (isset($responseCode)) $this->view->setResponse($responseCode);
+		if (isset($statusCode)) $this->view->setStatus($statusCode);
 	}
 }
