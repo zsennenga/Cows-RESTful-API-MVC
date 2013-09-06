@@ -2,7 +2,7 @@
 
 namespace CowsAPIViews;
 
-class Session extends BaseView	{
+class NoRoute extends BaseView	{
 
 	public function render()	{
 		http_response_code($this->responseCode);
