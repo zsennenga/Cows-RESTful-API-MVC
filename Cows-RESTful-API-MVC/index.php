@@ -28,14 +28,14 @@ if ($authHandler->signatureIsValid())	{
 	else 
 		$requestParams = array();
 	
-	$serviceFactory = new ServiceFactory(new DomainObjectFactory(), new DataMapperFactory($route->params(),$requestParams,$db,$curl));
+	$serviceFactory = new ServiceFactory(new DomainObjectFactory(), new DataMapperFactory($db,$curl),$requestParams);
 	
 	$baseClass = $route->getClass();
 	$controllerType = "\\CowsAPIController\\".$baseClass;
 	$viewType = "\\CowsAPIView\\".$baseClass;
 	
 	$view = new $viewType($log,$template);
-	$controller = new $controllerType($view, $serviceFactory);
+	$controller = new $controllerType($view, $route->eventId, $serviceFactory);
 }
 else {
 	$view = new \CowsAPIView\InvalidAuth($log, $template);
