@@ -14,7 +14,7 @@ class NoRoute extends BaseController	{
 		}
 		
 		if (isset($eventId))	{
-			$event = $this->serviceFactory->getEventById($siteId,$eventId);
+			$event = $this->serviceFactory->getEventById($eventId);
 			if (isset($event))	{
 				$this->updateView("Event Not Found", 1, 400);
 				return;
@@ -22,7 +22,7 @@ class NoRoute extends BaseController	{
 			$this->updateView($event);
 		}
 		else	{
-			$events = $this->serviceFactory->getEvents($siteId);
+			$events = $this->serviceFactory->getEvents();
 			$this->updateView($events);
 		}
 	}
@@ -36,7 +36,7 @@ class NoRoute extends BaseController	{
 			return;
 		}
 		
-		if (!$this->serviceFactory->checkSession($siteId))	{
+		if (!$this->serviceFactory->checkSession())	{
 			$this->updateView("Invalid session for site " . $siteId , 1 , 401);
 			return;
 		}
@@ -48,7 +48,7 @@ class NoRoute extends BaseController	{
 			return;
 		}
 		try	{
-			$eventId = $this->serviceFactory->createEvent($siteId,$params);
+			$eventId = $this->serviceFactory->createEvent($params);
 		}
 		catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), 1, 500);
@@ -69,7 +69,7 @@ class NoRoute extends BaseController	{
 		}
 		
 		if (isset($eventId))	{
-			if (!$this->serviceFactory->deleteEvent($siteId, $eventId))	{
+			if (!$this->serviceFactory->deleteEvent($eventId))	{
 				$this->updateView("Unable to delete event", 1, 403);
 			}
 		}
