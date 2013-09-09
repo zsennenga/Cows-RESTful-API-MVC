@@ -21,7 +21,10 @@ class CurlWrapper implements \CurlInterface	{
 	}
 	
 	public function execute() {
-		return curl_exec($this->handle);
+		$out = curl_exec($this->handle);
+		if ($out === false) throw new \RuntimeException("Unable to connect to Cows");
+		if (strlen($out) == 0) throw new \InvalidArgumentException("Cows returned no Data");
+		return $out;
 	}
 	
 	public function getInfo($name) {
