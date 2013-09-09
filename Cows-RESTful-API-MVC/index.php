@@ -1,5 +1,6 @@
 <?php
 
+use CowsAPIModels\ServiceFactory;
 require 'vendor/autoload.php';
 
 //Handle headers
@@ -27,6 +28,8 @@ if ($authHandler->signatureIsValid())	{
 		$requestParams = $_POST;
 	else 
 		$requestParams = array();
+	
+	$log->setParams($requestParams);
 	
 	$serviceFactory = new ServiceFactory(new DomainObjectFactory(), new DataMapperFactory($db,$curl),$requestParams);
 	
