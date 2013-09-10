@@ -19,7 +19,7 @@ class Router {
 	private $params;
 	private $prefix;
 	
-	public function __construct($logger, $routeSource)	{
+	public function __construct(Log $logger, $routeSource)	{
 		$this->routeArray = json_decode($routeSource, true);
 		if ($this->routeArray == false) throw new \InvalidArgumentException("Invalid Json");
 		$this->log = $logger;

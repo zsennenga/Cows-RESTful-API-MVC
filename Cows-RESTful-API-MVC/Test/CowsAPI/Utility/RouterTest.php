@@ -30,6 +30,20 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     	
     }
     
+    public function testGetMethod()	{
+    	$this->object->setRoute("GET" , "/event/its/1");
+    	$this->assertSame("GET", $this->object->getMethod());
+    	
+    	$this->object->setRoute("POST" , "/session/its");
+    	$this->assertSame("POST", $this->object->getMethod());
+    	
+    	$this->object->setRoute("DELETE" , "/event/its/1/");
+    	$this->assertSame("DELETE", $this->object->getMethod());
+    	
+    	$this->object->setRoute("POST" , "/event/its/1");
+    	$this->assertSame("invoke", $this->object->getMethod());
+    }
+    
     public function testParams()	{
     	$this->object->setRoute("GET" , "/event/its/1");
     	$this->assertSame("its", $this->object->getParams('siteId'));
