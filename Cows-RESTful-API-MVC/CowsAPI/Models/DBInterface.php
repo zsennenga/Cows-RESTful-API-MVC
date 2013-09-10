@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPIModels;
+namespace CowsAPI\Models;
 
 interface DBInterface	{
 	public function close();

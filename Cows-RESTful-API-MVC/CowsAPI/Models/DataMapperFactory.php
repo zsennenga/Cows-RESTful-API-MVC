@@ -1,5 +1,5 @@
 <?php
-namespace CowsAPIModels;
+namespace CowsAPI\Models;
 
 class DataMapperFactory	{
 	

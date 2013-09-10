@@ -11,11 +11,7 @@
 	},
 	"autoload" : {
 		"psr-0" : {
-			"CowsAPIModels" : "CowsAPI/Models",
-			"CowsAPIViews" : "CowsAPI/Views",
-			"CowsAPIUtility" : "CowsAPI/Utility",
-			"CowsAPITemplates" : "CowsAPI/Templates",
-			"CowsAPIControllers" : "CowsAPI/Controllers"
+			"CowsAPI\\" : ""
 		}
 	}
 }

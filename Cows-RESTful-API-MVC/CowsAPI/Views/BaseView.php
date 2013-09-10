@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPIViews;
+namespace CowsAPI\Views;
 
 abstract class BaseView	{
 	protected $responseCode;

@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPIModels;
+namespace CowsAPI\Models;
 
 interface CurlInterface {
     public function setOption($name, $value);

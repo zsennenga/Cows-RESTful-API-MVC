@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPITemplates;
+namespace CowsAPI\Templates;
 
 /**
  * Json view for the API

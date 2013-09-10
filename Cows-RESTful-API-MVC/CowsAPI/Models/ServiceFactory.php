@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPIModels;
+namespace CowsAPI\Models;
 
 class ServiceFactory	{
 	
@@ -183,6 +183,10 @@ class ServiceFactory	{
 	
 	public function setSiteId($siteId)	{
 		$this->siteId = $siteId;
+	}
+	
+	public function setParams($p)	{
+		$this->requestParams = $p;
 	}
 }
 

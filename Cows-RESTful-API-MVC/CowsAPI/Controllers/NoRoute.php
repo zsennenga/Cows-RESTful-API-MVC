@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPIControllers;
+namespace CowsAPI\Controllers;
 
 class NoRoute extends BaseController	{
 		

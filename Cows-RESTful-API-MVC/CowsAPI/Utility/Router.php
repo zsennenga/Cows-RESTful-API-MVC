@@ -1,5 +1,5 @@
 <?php
-namespace CowsApiUtility;
+namespace CowsAPI\Utility;
 
 /**
  *

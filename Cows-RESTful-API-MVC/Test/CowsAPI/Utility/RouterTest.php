@@ -1,11 +1,8 @@
 <?php
-namespace CowsApiUtility;
 
-require_once __DIR__ . '\..\..\..\CowsAPI\Utility\Log.php';
-require_once __DIR__ . '\..\..\..\CowsAPI\Utility\Router.php';
+include(__DIR__ . '\..\..\..\vendor\autoload.php');
 require_once __DIR__ . '\..\..\..\vendor\phpunit\phpunit\PHPUnit\Autoload.php';
 require_once __DIR__ . '\..\..\..\vendor\phpunit\phpunit\PHPUnit\Framework\TestSuite.php';
-require_once 'DummyLog.php';
 
 
 /**
@@ -18,6 +15,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
      * @var Router
      */
     protected $object;
+    protected $log;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -25,7 +23,11 @@ class RouterTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-    	$this->object = new Router(new \DummyLog(null, null), file_get_contents(__DIR__ . "\..\..\..\CowsAPI\Data\Routes.json"));
+    	$this->log = $this->getMockBuilder('\CowsAPI\Utility\Log')
+                     ->disableOriginalConstructor()
+                     ->getMock();
+    	$this->object = new CowsAPI\Utility\Router($this->log, file_get_contents(__DIR__ . "\..\..\..\CowsAPI\Data\Routes.json"));
+    	
     }
     
     public function testParams()	{

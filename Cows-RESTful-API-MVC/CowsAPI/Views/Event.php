@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPIViews;
+namespace CowsAPI\Views;
 
 class Event extends BaseView	{
 

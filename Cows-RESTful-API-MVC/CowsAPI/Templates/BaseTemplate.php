@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPITemplates;
+namespace CowsAPI\Templates;
 
 abstract class BaseTemplate	{
 	abstract function parse($statusCode, $message);
