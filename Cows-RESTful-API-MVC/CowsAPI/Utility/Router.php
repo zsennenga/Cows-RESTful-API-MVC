@@ -19,6 +19,14 @@ class Router {
 	private $params;
 	private $prefix;
 	
+	/**
+	 * Creates an object which uses the Json routes file to calculate
+	 * which controller needs to be created and which method on it to invoke
+	 * 
+	 * @param Log $logger
+	 * @param Json $routeSource
+	 * @throws \InvalidArgumentException
+	 */
 	public function __construct(Log $logger, $routeSource)	{
 		$this->routeArray = json_decode($routeSource, true);
 		if ($this->routeArray == false) throw new \InvalidArgumentException("Invalid Json");
@@ -28,10 +36,21 @@ class Router {
 		$this->params = array();
 	}
 	
+	/**
+	 * If your URLs have a prefix, set this
+	 * @param unknown $p
+	 */
 	public function setPrefix($p)	{
 		$this->prefix = $p;
 	}
 	
+	/**
+	 * 
+	 * Takes a URI and an HTTPMethod and figures out where to shunt you to.
+	 * 
+	 * @param HTTP Method $method
+	 * @param URI $route
+	 */
 	public function setRoute($method, $route)	{
 		//Reset internal state
 		$this->class = "NoRoute";
@@ -56,7 +75,12 @@ class Router {
 			}
 		}
 	}
-	
+	/**
+	 * Gets a specific parameter from the url (siteId, etc)
+	 * 
+	 * @param string $key
+	 * @return Ambigous <multitype:, mixed>|NULL
+	 */
 	public function getParams($key = null)	{
 		if ($key == null) 
 			return $this->params;
@@ -66,10 +90,19 @@ class Router {
 			return $this->params[$key];
 	}
 	
+	/**
+	 * Get the controller class associated with a route
+	 * 
+	 * @return string
+	 */
 	public function getClass()	{
 		return $this->class;
 	}
 	
+	/**
+	 * Gets the HTTP Method to invoke on the controller
+	 * @return string
+	 */
 	public function getMethod()	{
 		if ($this->class != "NoRoute")	{
 			return $this->method;

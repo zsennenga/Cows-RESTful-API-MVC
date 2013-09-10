@@ -279,6 +279,22 @@ class ServiceFactory	{
 	public function setParams($p)	{
 		$this->requestParams = $p;
 	}
+	
+	public function checkSignature($publicKey, $timeStamp, $signature, $route)	{
+		$keyDB = $this->dataMapperFactory->get("KeyDB");
+		
+		if (($privateKey = $keyDB->getPrivateKey($publicKey)) === false) return false;
+		
+		$authChecker = $this->domainObjectFactory->get('AuthChecker');
+		
+		return $authChecker->verifySignature($signature, 
+											$privateKey,
+											$timeStamp,
+											$route->getMethod();
+											$route->getURI();
+											http_build_query($this->requestParams));
+		
+	}
 }
 
 ?>
