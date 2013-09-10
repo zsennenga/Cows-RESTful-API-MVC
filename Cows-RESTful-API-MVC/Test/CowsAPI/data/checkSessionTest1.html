@@ -1,0 +1,131 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	
+    Home Page
+
+</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><link type="text/css" href="/Content/cupertino/jquery-ui-1.8.2.custom.css" rel="Stylesheet" /><link href="/Content/telerik/telerik.common.min.css" rel="stylesheet" type="text/css" /><link href="/Content/telerik/telerik.Windows7.min.css" rel="stylesheet" type="text/css" /><link href="/Content/Cows.css" rel="stylesheet" type="text/css" /><link href="/Content/print.css" rel="stylesheet" type="text/css" media="print" />
+    <link href="/Content/Cows.its.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/fg.menu.css" rel="stylesheet" type="text/css" />
+    
+	
+    <script type="text/javascript" src="/Scripts/jquery-1.4.2.min.js"></script>
+    
+    
+    
+
+    <script type="text/javascript" src="/Scripts/jquery-ui-1.8.2.custom.min.js"></script>
+    
+    
+    <script type="text/javascript" src="/Scripts/fg.menu.js"></script>
+
+    <script type="text/javascript" src="/Scripts/jquery-validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-validate/jquery.validate.unobtrusive.js"></script>
+    
+
+    
+    <link type="text/css" href="/Content/jquery.calendar.css" rel="Stylesheet" />
+
+    
+    
+    
+	<script type="text/javascript" src="/Scripts/json/json2.js"></script>
+    <script type="text/javascript" src="/Scripts/crockford.js"></script>
+	
+	<script type="text/javascript" src="/Scripts/jquery.calendar.js"></script>
+    <script type="text/javascript" src="/Scripts/cowsCal.js"></script>
+</head>
+
+<body>
+
+    <div id="sidebar">
+    
+        <div id="logo">
+
+        </div>
+        
+        <div id="logindisplay">
+        </div> 
+
+        <div id="nav">
+            
+
+    <script type="text/javascript">
+    	$(function () {
+    		$("#newitem").fgmenu({						// create an fg.menu to contain submenu under "add item"
+    			content: $("#newitem > ul").html()
+    		});
+
+//    		$("#help").menu({							// create an fg.menu to contain submenu under "help"
+//    			content: $("#help > ul").html()
+//    		});
+
+    		$("#toolbar > ul > li")						// add common jquery ui themable classes to toolbar buttons and links
+				.addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only")
+				.hover(
+					function () { $(this).addClass("ui-state-hover"); }, 
+					function () { $(this).removeClass("ui-state-hover"); })
+				.children("a")
+				.addClass("ui-button-icon-primary ui-icon");
+    	});
+    </script>
+
+
+    <div id="toolbar">  
+        <ul>
+            <li id="home">
+				<a class="ui-icon-home" href="/its" title="home">home</a>
+			</li>
+
+			
+            <li id="subscribe"><a href="#" title="subscribe" class="ui-icon-signal-diag">subscribe</a></li>
+			
+
+            <li id="help">
+				<a class="ui-icon-help" href="/its/Help/Home" title="help">help</a>
+
+			</li>
+
+        </ul>
+    </div>
+               
+                  
+        </div>
+        
+        <div id="widgets">
+			
+            
+        </div>
+
+        
+
+		<div id="copyright">
+			&copy; 2011 UC Regents
+		</div>
+        
+    </div>
+    
+    <div id="main">
+
+        <div id="header">
+            
+			<div id="login">
+				<a class="big" href="/its/Account/LogOn?returnUrl=http%3A%2F%2Fcows.ucdavis.edu%2Fits">Log On</a> 
+
+			</div>
+        </div>
+    
+        <div id="content">
+            
+            <div id="message"></div>
+            
+	<input id="gridScrollLeft" name="gridScrollLeft" type="hidden" value="480" />
+    <div id="calendar"></div>
+    <div id="dialog-container" class="hidden"></div>
+
+        </div>
+    </div>
+</body>
+</html>
+    			
