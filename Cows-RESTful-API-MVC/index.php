@@ -1,6 +1,7 @@
 <?php
 
 require 'vendor/autoload.php';
+require_once 'CowsApi/Data/Config.php';
 
 //Handle headers
 

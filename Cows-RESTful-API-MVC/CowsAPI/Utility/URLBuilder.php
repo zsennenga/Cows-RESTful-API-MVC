@@ -1,8 +1,6 @@
 <?php
 namespace CowsAPI\Utility;
 
-require_once '../Data/Config.php';
-
 class URLBuilder	{
 	
 	public function __construct()	{
