@@ -27,9 +27,9 @@ else
 	
 $log->setParams($requestParams);
 	
-$serviceFactory = new \CowsAPI\Models\ServiceFactory(new \CowsAPI\Models\DomainObjectFactory(), new \CowsAPI\Models\DataMapperFactory($db,$curl),$requestParams);
+$serviceFactory = new \CowsAPI\Models\ServiceFactory(new \CowsAPI\Models\DomainObjectFactory(), new \CowsAPI\Models\DataMapperFactory($db,$curl,$headerManager->getPublicKey()),$requestParams);
 
-if ($serviceFactory->checkSignature($headerManager->getPublicKey(), $headerManager->getTimestamp(), $headerManager->getSignature(), $route))	{
+if ($serviceFactory->checkSignature($headerManager->getTimestamp(), $headerManager->getSignature(), $route))	{
 	$baseClass = $route->getClass();
 	$controllerType = "\\CowsAPI\\Controller\\".$baseClass;
 	$viewType = "\\CowsAPI\\View\\".$baseClass;
