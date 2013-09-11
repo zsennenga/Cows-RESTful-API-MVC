@@ -381,12 +381,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "f97c8ef9be655c35e6fecdb608bdf5af05a4374a"
+                "reference": "24ab2173bad5346bd280f9c1c36ebc0442f4dcdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/f97c8ef9be655c35e6fecdb608bdf5af05a4374a",
-                "reference": "f97c8ef9be655c35e6fecdb608bdf5af05a4374a",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/24ab2173bad5346bd280f9c1c36ebc0442f4dcdb",
+                "reference": "24ab2173bad5346bd280f9c1c36ebc0442f4dcdb",
                 "shasum": ""
             },
             "require": {
@@ -427,7 +427,7 @@
                 "feeds",
                 "rss"
             ],
-            "time": "2013-08-31 01:38:46"
+            "time": "2013-09-11 03:42:27"
         },
         {
             "name": "symfony/yaml",

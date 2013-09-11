@@ -9,7 +9,7 @@ class DocumentGrabber extends GenericDataMapper {
 	}
 	
 	public function getDocument($siteId)	{
-		$this->sessionManager->authCurl($siteId)
+		$this->sessionManager->authCurl($siteId);
 		$this->curl->setOption(CURLOPT_CUSTOMREQUEST, "GET");
 		return $this->curl->execute();
 	}
