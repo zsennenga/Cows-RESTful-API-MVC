@@ -53,7 +53,7 @@ class ServiceFactory	{
 		
 		$documentGrabber->setUrl($url);
 		
-		$document = $documentGrabber->getDocument();
+		$document = $documentGrabber->getDocument($this->siteId);
 		return $parser->parse($document);
 	}
 	
@@ -63,7 +63,7 @@ class ServiceFactory	{
 	 */
 	public function getServiceTicket($tgc)	{
 		
-		$url = $this->urlBuilder->getCasProxyURL("http://cows.ucdavis.edu/its/Account/LogOn?returnUrl=http://cows.ucdavis.edu/its", $tgc)
+		$url = $this->urlBuilder->getCasProxyURL("http://cows.ucdavis.edu/its/Account/LogOn?returnUrl=http://cows.ucdavis.edu/its", $tgc);
 		
 		return $this->grabAndParse('CasParser', $url);
 	}
@@ -205,7 +205,7 @@ class ServiceFactory	{
 		
 		$cowsErrorParser = $this->domainObjectFactory->get('CowsErrorParser');
 		
-		$doc = $this->dataMapperFactory->basicPOST($url,$params);
+		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$params);
 		$cowsErrorParser->setDocument($doc);
 		$cowsErrorParser->parse();
 	}
@@ -221,7 +221,7 @@ class ServiceFactory	{
 		
 		$cowsErrorParser = $this->domainObjectFactory->get('CowsErrorParser');
 		
-		$doc = $this->dataMapperFactory->basicPOST($url,$params);
+		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$params);
 		$cowsErrorParser->setDocument($doc);
 		$cowsErrorParser->parse();
 		
@@ -241,7 +241,7 @@ class ServiceFactory	{
 		
 		$cowsErrorParser = $this->domainObjectFactory->get('CowsErrorParser');
 		
-		$doc = $this->dataMapperFactory->basicPOST($url,$params);
+		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$params);
 		$cowsErrorParser->setDocument($doc);
 		$cowsErrorParser->parse();
 		
@@ -254,9 +254,9 @@ class ServiceFactory	{
 	public function createSession($ticket)	{
 		
 		$url = $this->urlBuilder->getCowsLoginUrl($this->siteId, $ticket);
-		$cowsSessionManager = $this->dataMapperFactory->get('SessionManager');
+		$cowsSessionTable = $this->dataMapperFactory->get('SessionManager');
 		
-		$cowsSessionManager->create($this->siteId, $url);
+		$cowsSessionTable->create($this->siteId, $url);
 		
 		$cowsErrorParser = $this->domainObjectFactory->get('CowsErrorParser');
 		
@@ -280,18 +280,18 @@ class ServiceFactory	{
 		$this->requestParams = $p;
 	}
 	
-	public function checkSignature($publicKey, $timeStamp, $signature, $route)	{
-		$keyDB = $this->dataMapperFactory->get("KeyDB");
+	public function checkSignature($timeStamp, $signature, $route)	{
+		$keyDB = $this->dataMapperFactory->get("KeyTable");
 		
-		if (($privateKey = $keyDB->getPrivateKey($publicKey)) === false) return false;
+		if (($privateKey = $keyDB->getPrivateKey()) === false) return false;
 		
 		$authChecker = $this->domainObjectFactory->get('AuthChecker');
 		
 		return $authChecker->verifySignature($signature, 
 											$privateKey,
 											$timeStamp,
-											$route->getMethod();
-											$route->getURI();
+											$route->getMethod(),
+											$route->getURI(),
 											http_build_query($this->requestParams));
 		
 	}

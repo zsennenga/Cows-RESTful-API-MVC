@@ -51,7 +51,7 @@ class Log	{
 		$this->dbHandle->addParam(":method", $this->method);
 		$this->dbHandle->addParam(":params", $this->params);
 		$this->dbHandle->addParam(":response", $this->response);
-		$this->dbHandle->query("INSERT INTO ". $table ." (ip,publicKey,route,method,params,response) VALUES (:ip,:pkey,:route,:method,:params,:response)");
+		$this->dbHandle->query("INSERT INTO ". DB_TABLE_LOG ." (ip,publicKey,route,method,params,response) VALUES (:ip,:pkey,:route,:method,:params,:response)");
 	}
 }
 ?>
