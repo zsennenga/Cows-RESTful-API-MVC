@@ -2,7 +2,7 @@
 
 namespace CowsAPI\Views;
 
-class Invalid Auth extends BaseView	{
+class InvalidAuth extends BaseView	{
 
 	public function render()	{
 		http_response_code($this->responseCode);

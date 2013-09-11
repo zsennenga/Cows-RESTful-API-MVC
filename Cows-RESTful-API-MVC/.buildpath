@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <buildpath>
-	<buildpathentry kind="src" path="vendor/phpunit/php-text-template/Text"/>
-	<buildpathentry kind="src" path="vendor/phpunit/php-file-iterator/File"/>
-	<buildpathentry kind="src" path="vendor/composer"/>
-	<buildpathentry excluding="vendor/phpunit/php-text-template/Text/|vendor/phpunit/php-file-iterator/File/|vendor/composer/|vendor/phpunit/php-token-stream/PHP/|vendor/simplepie/simplepie/library/|vendor/phpunit/phpunit-mock-objects/PHPUnit/|vendor/phpunit/php-code-coverage/PHP/|vendor/phpunit/phpunit/PHPUnit/|vendor/symfony/yaml/|vendor/phpunit/php-timer/PHP/" kind="src" path=""/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
-	<buildpathentry kind="src" path="vendor/phpunit/php-token-stream/PHP"/>
-	<buildpathentry kind="src" path="vendor/simplepie/simplepie/library"/>
-	<buildpathentry kind="src" path="vendor/phpunit/phpunit-mock-objects/PHPUnit"/>
-	<buildpathentry kind="src" path="vendor/phpunit/php-code-coverage/PHP"/>
 	<buildpathentry kind="lib" path="composer.phar"/>
-	<buildpathentry kind="src" path="vendor/phpunit/phpunit/PHPUnit"/>
-	<buildpathentry kind="src" path="vendor/symfony/yaml"/>
-	<buildpathentry kind="src" path="vendor/phpunit/php-timer/PHP"/>
+	<buildpathentry kind="src" path=""/>
 	<buildpathentry external="true" kind="lib" path="C:/php5/go-pear.phar"/>
 	<buildpathentry external="true" kind="lib" path="C:/php5/pharcommand.phar"/>
 </buildpath>
