@@ -72,9 +72,11 @@ class ServiceFactory	{
 	 * Takes in a Ticket Granting Cookie and uses it to generate a ticket with the CAS Proxy Service
 	 * @param Ticket Granting Cookie $tgc
 	 */
-	public function getServiceTicket($tgc)	{
+	public function getServiceTicket()	{
 		
-		$url = $this->urlBuilder->getCasProxyURL("http://cows.ucdavis.edu/its/Account/LogOn?returnUrl=http://cows.ucdavis.edu/its", $tgc);
+		if (!isset($this->requestParams['tgc'])) throw new InvalidArgumentException("TGC must be provided to create a ticket");
+		
+		$url = $this->urlBuilder->getCasProxyURL("http://cows.ucdavis.edu/its/Account/LogOn?returnUrl=http://cows.ucdavis.edu/its", $this->requestParams['tgc']);
 		
 		return $this->grabAndParse('CasParser', $url);
 	}

@@ -2,20 +2,34 @@
 
 namespace CowsAPI\Controllers;
 
-class NoRoute extends BaseController	{
+class Event extends BaseController	{
+	
 	public function GET()	{
 		
 		if (isset($this->eventId))	{
-			$event = $this->serviceFactory->getEventById($eventId);
+			try	{
+				$event = $this->serviceFactory->getEventById($this->eventId);
+			}
+			catch (\Exception $e)	{
+				$this->updateView($e->getMessage(), ERROR_CURL, 500);
+				return $e->getMessage();
+			}
 			if (!isset($event))	{
-				$this->updateView("Event Not Found", 1, 400);
+				$this->updateView("Event Not Found", ERROR_PARAMETERS, 400);
 				return "Event Not Found";
 			}
 			$this->updateView($event);
 			return $event;
 		}
 		else	{
-			$events = $this->serviceFactory->getEvents();
+			try	{
+				$events = $this->serviceFactory->getEvents();
+			}
+			catch(\Exception $e)	{
+				$this->updateView($e->getMessage(), ERROR_CURL, 500);
+				return $e->getMessage();
+			}
+			
 			$this->updateView($events);
 			return $events;
 		}
@@ -35,22 +49,26 @@ class NoRoute extends BaseController	{
 			return $e->getMessage();
 		}
 		try	{
-			$eventId = $this->serviceFactory->createEvent($params);
+			$newEventId = $this->serviceFactory->createEvent($params);
 		}
 		catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), 1, 500);
 			return $e->getMessage();
 		}
 		
-		$this->updateView($this->eventId);
-		return $eventId;
+		$this->updateView($newEventId);
+		return $newEventId;
 	}
 	
 	public function DELETE()	{
-
-		if (!$this->serviceFactory->deleteEvent($this->eventId))	{
-			$this->updateView("Unable to delete event", 1, 403);
-			return ("Unable to delete event");
+		try	{
+			if (!$this->serviceFactory->deleteEvent($this->eventId))	{
+				$this->updateView("Unable to delete event", 1, 403);
+				return "Unable to delete event";
+			}
+		} catch (Exception $e)	{
+			$this->updateView($e->getMessage(), 1, 500);
+			return $e->getMessage();
 		}
 		return "";
 	}

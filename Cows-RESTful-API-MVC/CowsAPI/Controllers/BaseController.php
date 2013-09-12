@@ -9,7 +9,12 @@ abstract class BaseController	{
 	protected $eventId;
 	protected $serviceFactory;
 	private $view;
-	
+	/**
+	 * 
+	 * @param view $view
+	 * @param event id $eventId
+	 * @param ServiceFactory $serviceFactory
+	 */
 	public final function __construct($view, $eventId, ServiceFactory $serviceFactory)	{
 		$this->view = $view;
 		$this->serviceFactory = $serviceFactory;

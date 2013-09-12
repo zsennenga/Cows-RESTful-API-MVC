@@ -2,19 +2,19 @@
 
 namespace CowsAPI\Controllers;
 
-class NoRoute extends BaseController	{
+class Session extends BaseController	{
 	public function POST()	{
 		
 		try {
 			$ticket = $this->serviceFactory->getServiceTicket();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->updateView($e->getMessage(), ERROR_CAS, 400);
 			return $e->getMessage();
 		}
 		
 		try {
 			$this->serviceFactory->createSession($ticket);
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->updateView($e->getMessage(), ERROR_COWS, 400);
 			return $e->getMessage();
 		}
@@ -28,8 +28,8 @@ class NoRoute extends BaseController	{
 		if (!$this->serviceFactory->checkSession()) return "";
 		
 		try {
-			$ticket = $this->serviceFactory->destroySession();
-		} catch (Exception $e) {
+			$this->serviceFactory->destroySession();
+		} catch (\Exception $e) {
 			$this->updateView($e->getMessage(), ERROR_COWS, 400);
 			return $e->getMessage();
 		}
