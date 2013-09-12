@@ -11,6 +11,12 @@ abstract class BaseView	{
 	
 	protected $logger;
 	
+	/**
+	 * Build the view, set default response parameters
+	 * 
+	 * @param Log $log
+	 * @param Template $template
+	 */
 	public final function __construct($log, $template)	{
 		$this->logger = $log;
 		$this->template = $template;
@@ -31,5 +37,10 @@ abstract class BaseView	{
 		$this->responseCode = $r;
 	}
 	
-	abstract function render();
+	public function render()	{
+		http_response_code($this->responseCode);
+		echo $this->template->parse($this->statusCode,$this->message);
+		$this->log->setResponse($out);
+		echo $out;
+	}
 }
