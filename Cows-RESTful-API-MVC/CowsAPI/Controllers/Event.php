@@ -5,74 +5,54 @@ namespace CowsAPI\Controllers;
 class NoRoute extends BaseController	{
 	public function GET()	{
 		
-		$siteId = $this->route->getParam('siteId');
-		$eventId = $this->route->getParam('eventId');
-		
-		if (!$this->serviceFactory->validateSiteId($siteId))	{
-			$this->updateView("Invalid Site Id", 1 , 400);
-			return;	
-		}
-		
-		if (isset($eventId))	{
+		if (isset($this->eventId))	{
 			$event = $this->serviceFactory->getEventById($eventId);
-			if (isset($event))	{
+			if (!isset($event))	{
 				$this->updateView("Event Not Found", 1, 400);
-				return;
+				return "Event Not Found";
 			}
 			$this->updateView($event);
+			return $event;
 		}
 		else	{
 			$events = $this->serviceFactory->getEvents();
 			$this->updateView($events);
+			return $events;
 		}
 	}
 	
 	public function POST()	{
 		
-		$siteId = $this->route->getParam('siteId');
-		
-		if (!$this->serviceFactory->validateSiteId($siteId))	{
-			$this->updateView("Invalid Site Id", 1 , 400);
-			return;
-		}
-		
 		if (!$this->serviceFactory->checkSession())	{
-			$this->updateView("Invalid session for site " . $siteId , 1 , 401);
-			return;
+			$this->updateView("Invalid session" , 1 , 401);
+			return "Invalid session";
 		}
 		try	{
 			$params = $this->serviceFactory->buildEventParams();
 		}
 		catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), 1, 400);
-			return;
+			return $e->getMessage();
 		}
 		try	{
 			$eventId = $this->serviceFactory->createEvent($params);
 		}
 		catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), 1, 500);
-			return;
+			return $e->getMessage();
 		}
 		
-		$this->updateView($eventId);
+		$this->updateView($this->eventId);
+		return $eventId;
 	}
 	
 	public function DELETE()	{
-		
-		$siteId = $this->route->getParam('siteId');
-		$eventId = $this->route->getParam('eventId');
-		
-		if (!$this->serviceFactory->validateSiteId($siteId))	{
-			$this->updateView("Invalid Site Id", 1 , 400);
-			return;
+
+		if (!$this->serviceFactory->deleteEvent($this->eventId))	{
+			$this->updateView("Unable to delete event", 1, 403);
+			return ("Unable to delete event");
 		}
-		
-		if (isset($eventId))	{
-			if (!$this->serviceFactory->deleteEvent($eventId))	{
-				$this->updateView("Unable to delete event", 1, 403);
-			}
-		}
+		return "";
 	}
 }
 ?>

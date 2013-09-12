@@ -26,16 +26,28 @@ else
 	$requestParams = array();
 	
 $log->setParams($requestParams);
-	
-$serviceFactory = new \CowsAPI\Models\ServiceFactory(new \CowsAPI\Models\DomainObjectFactory(), new \CowsAPI\Models\DataMapperFactory($db,$curl,$headerManager->getPublicKey()),$requestParams);
+try	{
+	$serviceFactory = new \CowsAPI\Models\ServiceFactory(
+			 		  	new \CowsAPI\Models\DomainObjectFactory(), 
+					  	new \CowsAPI\Models\DataMapperFactory($db,$curl,$headerManager->getPublicKey()),
+				   	  	$requestParams,
+					  	new \CowsAPI\Utility\URLBuilder(),
+					  	$route->getParam('siteId'));
+}
+catch (InvalidArgumentException $e)	{
+	$view = new \CowsAPI\Views\InvalidSiteId($log,$template);
+	$view->render();
+	exit(0);
+}
 
-if ($serviceFactory->checkSignature($headerManager->getTimestamp(), $headerManager->getSignature(), $route))	{
+if ($serviceFactory->checkSignature($headerManager->getTimestamp(), $headerManager->getSignature(), $route->getMethod(), $route->getURI()))	{
 	$baseClass = $route->getClass();
 	$controllerType = "\\CowsAPI\\Controller\\".$baseClass;
 	$viewType = "\\CowsAPI\\View\\".$baseClass;
 		
 	$view = new $viewType($log,$template);
-	$controller = new $controllerType($view, $route->eventId, $serviceFactory);
+	$controller = new $controllerType($view, $route->getParam('eventId'), $serviceFactory);
+	$controller->authCows();
 	$controller->{$route->getMethod()}();
 }
 else {

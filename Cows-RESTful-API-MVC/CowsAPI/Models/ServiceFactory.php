@@ -3,6 +3,7 @@
 namespace CowsAPI\Models;
 
 use CowsAPI\Utility\URLBuilder;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
 /**
  * 
  * ServiceFactory
@@ -26,19 +27,29 @@ class ServiceFactory	{
 	private $urlBuilder;
 
 	/**
-	 * 
 	 * Builds the service factory
+	 * 
+	 * Throws InvalidArgumentException if $siteId is invalid.
 	 * 
 	 * @param array $do
 	 * @param DataMapperFactory $dm
 	 * @param DomainObjectFactory $rp
 	 * @param URLBuilder $ub
+	 * @param Site ID $siteId
 	 */
-	public function __construct(Array $do, DataMapperFactory $dm, DomainObjectFactory $rp, URLBuilder $ub)	{
+	public function __construct(Array $do, DataMapperFactory $dm, DomainObjectFactory $rp, URLBuilder $ub, $siteId)	{
 		$this->requestParams = $rp;
 		$this->dataMapperFactory = $dm;
 		$this->domainObjectFactory = $do;
 		$this->urlBuilder = $ub;
+		
+		$this->validateSiteId($siteId);
+		$this->siteId = $siteId;
+	}
+	
+	public function authCowsSession()	{
+		$sessionManager = $this->dataMapperFactory->get('SessionManager');
+		$sessionManager->authCurl($this->siteId);
 	}
 	
 	/**
@@ -72,10 +83,11 @@ class ServiceFactory	{
 	 * 
 	 * @param SiteId $siteId
 	 */
-	public function validateSiteId($siteId)	{
-		$document = $this->dataMapperFactory->get('DocumentGrabber');
+	private function validateSiteId($siteId)	{
+		$siteValidator = $this->dataMapperFactory->get('SiteValidator');
 		
-		return $document->validSite($siteId);
+		if (!$siteValidator->validSite($siteId))
+			throw new InvalidArgumentException("Invalid Site Id");
 	}
 	
 	/**
@@ -265,14 +277,6 @@ class ServiceFactory	{
 	}
 	
 	/**
-	 * Set the siteId
-	 * @param string $siteId
-	 */
-	public function setSiteId($siteId)	{
-		$this->siteId = $siteId;
-	}
-	
-	/**
 	 * Sets the request parameters
 	 * @param string $p
 	 */
@@ -280,7 +284,16 @@ class ServiceFactory	{
 		$this->requestParams = $p;
 	}
 	
-	public function checkSignature($timeStamp, $signature, $route)	{
+	/**
+	 * Checks that a given signature is valid
+	 * 
+	 * @param Timestamp of Request from Headers $timeStamp
+	 * @param Signature $signature
+	 * @param HTTP Request Method $method
+	 * @param Request URI $uri
+	 * @return boolean
+	 */
+	public function checkSignature($timeStamp, $signature, $method, $uri)	{
 		$keyDB = $this->dataMapperFactory->get("KeyTable");
 		
 		if (($privateKey = $keyDB->getPrivateKey()) === false) return false;
@@ -290,8 +303,8 @@ class ServiceFactory	{
 		return $authChecker->verifySignature($signature, 
 											$privateKey,
 											$timeStamp,
-											$route->getMethod(),
-											$route->getURI(),
+											$method,
+											$uri,
 											http_build_query($this->requestParams));
 		
 	}
