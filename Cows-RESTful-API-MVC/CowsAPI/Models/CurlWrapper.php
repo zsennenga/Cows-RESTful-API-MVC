@@ -7,7 +7,7 @@ namespace CowsAPI\Models;
  * @author its-zach
  *
  */
-class CurlWrapper implements \CurlInterface	{
+class CurlWrapper implements CurlInterface	{
 	private $handle = null;
 	
 	/**

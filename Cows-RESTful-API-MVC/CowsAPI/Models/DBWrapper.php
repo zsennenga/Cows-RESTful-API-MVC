@@ -8,7 +8,7 @@ namespace CowsAPI\Models;
  * @author its-zach
  *
  */
-class DBWrapper implements \DBInterface	{
+class DBWrapper implements DBInterface	{
 	
 	private $dbHandle;
 	private $params;
