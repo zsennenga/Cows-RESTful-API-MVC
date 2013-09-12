@@ -3,7 +3,7 @@
 namespace CowsAPI\Models;
 
 use CowsAPI\Utility\URLBuilder;
-use Symfony\Component\Process\Exception\InvalidArgumentException;
+
 /**
  * 
  * ServiceFactory
