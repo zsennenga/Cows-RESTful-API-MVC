@@ -19,6 +19,8 @@ class Router {
 	private $params;
 	private $prefix;
 	
+	private $route;
+	
 	/**
 	 * Creates an object which uses the Json routes file to calculate
 	 * which controller needs to be created and which method on it to invoke
@@ -59,6 +61,7 @@ class Router {
 		
 		if ($this->prefix != null) $route = preg_replace("|". preg_quote($this->prefix) . "|iA", "", $route);
 		$this->log->setRoute($method, $route);
+		$this->route = $route;
 		
 		$routeParts = array_filter(explode("/", $route), 'strlen');
 		$uri = strtolower(array_shift($routeParts));
@@ -97,6 +100,14 @@ class Router {
 	 */
 	public function getClass()	{
 		return $this->class;
+	}
+	
+	/**
+	 * Gets the URI with any prefix removed.
+	 * @return URI
+	 */
+	public function getURI()	{
+		return $this->route;
 	}
 	
 	/**

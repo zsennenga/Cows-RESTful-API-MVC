@@ -2,13 +2,12 @@
 namespace CowsAPI\Models;
 
 abstract class GenericParser	{
-	protected $doc;
 	
-	public function __construct($doc)	{
-		$this->doc = $doc;
+	public final function __construct()	{
+	
 	}
 	
-	abstract public function parse();
+	abstract public function parse($doc);
 }
 
 ?>
