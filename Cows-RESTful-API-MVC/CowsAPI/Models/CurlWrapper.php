@@ -2,9 +2,17 @@
 
 namespace CowsAPI\Models;
 
+/**
+ * Basic OO curl wrapper
+ * @author its-zach
+ *
+ */
 class CurlWrapper implements \CurlInterface	{
 	private $handle = null;
 	
+	/**
+	 * Sets up a couple of core options necessary for our purpose (user agent, return transfer etc)
+	 */
 	public function CurlWrapper() {
 		$this->handle = curl_init();
 		
@@ -20,6 +28,11 @@ class CurlWrapper implements \CurlInterface	{
 		curl_setopt($this->handle, $name, $value);
 	}
 	
+	/**
+	 * Executes a curl request, throws exceptions in case of error
+	 * @throws \RuntimeException
+	 * @return unknown
+	 */
 	public function execute() {
 		$out = curl_exec($this->handle);
 		if ($out === false) throw new \RuntimeException("Unable to connect.");

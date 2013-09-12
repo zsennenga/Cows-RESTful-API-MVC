@@ -13,6 +13,12 @@ class DataMapperFactory	{
 		$this->publicKey = $publicKey;
 	}
 	
+	/**
+	 * Creates the data mapper object with the given name
+	 * 
+	 * @param unknown $className
+	 * @return unknown
+	 */
 	public function get($className)	{
 		$className = "\\CowsApi\\Models\\" . $className;
 		

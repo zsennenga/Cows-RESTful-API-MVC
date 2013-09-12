@@ -1,7 +1,11 @@
 <?php
 
 namespace CowsAPI\Models ;
-
+/**
+ * Class to perform a POST request with the given parameters to a given url
+ * @author its-zach
+ *
+ */
 class BasicPost extends GenericDataMapper {
 
 	public function execute($url, $params)	{

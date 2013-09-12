@@ -2,6 +2,11 @@
 
 namespace CowsAPI\Models;
 
+/**
+ * Interface to perform web requests
+ * @author its-zach
+ *
+ */
 interface CurlInterface {
     public function setOption($name, $value);
     public function execute();
