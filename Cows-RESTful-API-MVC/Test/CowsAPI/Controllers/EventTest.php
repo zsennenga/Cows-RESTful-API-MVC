@@ -307,6 +307,33 @@ class EventTest extends \PHPUnit_Framework_TestCase {
 		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
 		$this->assertTrue("" == $controller->DELETE());
 	}
+	
+	public function testDeleteException()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('deleteEvent'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('deleteEvent')
+		->will($this->throwException(new \Exception("Test")));
+	
+		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
+		$this->assertTrue("Test" == $controller->DELETE());
+	}
+	
+	public function testDeleteExceptionFail()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('deleteEvent'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('deleteEvent')
+		->will($this->throwException(new \Exception("Test")));
+	
+		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
+		$this->assertFalse("Unable to delete  event" == $controller->DELETE());
+	}
+	
 	public function testDeleteSuccessTestFail()	{
 		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
 		->disableOriginalConstructor()

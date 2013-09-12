@@ -66,7 +66,7 @@ class Event extends BaseController	{
 				$this->updateView("Unable to delete event", 1, 403);
 				return "Unable to delete event";
 			}
-		} catch (Exception $e)	{
+		} catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), 1, 500);
 			return $e->getMessage();
 		}
