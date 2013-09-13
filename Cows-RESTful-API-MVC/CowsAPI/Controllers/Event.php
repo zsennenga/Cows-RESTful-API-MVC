@@ -2,6 +2,11 @@
 
 namespace CowsAPI\Controllers;
 
+/**
+ * Controller for the /event path
+ * @author its-zach
+ *
+ */
 class Event extends BaseController	{
 	
 	public function GET()	{

@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPI\Models;
+namespace CowsAPI\Models\HTTP;
 
 /**
  * Interface to perform web requests

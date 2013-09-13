@@ -2,6 +2,11 @@
 
 namespace CowsAPI\Controllers;
 
+/**
+ * Controller for the /session path
+ * @author its-zach
+ *
+ */
 class Session extends BaseController	{
 	public function POST()	{
 		

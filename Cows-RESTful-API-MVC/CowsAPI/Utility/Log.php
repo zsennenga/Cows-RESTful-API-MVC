@@ -1,6 +1,12 @@
 <?php
 namespace CowsAPI\Utility;
-
+/**
+ * 
+ * Logs certain parameters in the database after each request
+ * 
+ * @author its-zach
+ * @codeCoverageIgnore
+ */
 class Log	{
 	private $dbHandle;
 	private $table;

@@ -107,6 +107,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     	$this->assertSame("Session", $this->object->getClass());
     	$this->object->setRoute("POST" , "/event/its");
     	$this->assertSame("Event", $this->object->getClass());
+    	$this->assertSame("/event/its", $this->object->getURI());
     	
     	$this->object->setRoute("DELETE" , "/event/its/1/");
     	$this->assertSame("Event", $this->object->getClass());

@@ -36,7 +36,11 @@ abstract class BaseView	{
 	public function setResponse($r)	{
 		$this->responseCode = $r;
 	}
-	
+	/**
+	 * Show the view after setting all the parameters
+	 * 
+	 * @codeCoverageIgnore
+	 */
 	public function render()	{
 		http_response_code($this->responseCode);
 		echo $this->template->parse($this->statusCode,$this->message);

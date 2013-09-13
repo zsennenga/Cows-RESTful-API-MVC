@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPI\Models ;
+namespace CowsAPI\Models\DataMappers ;
 /**
  * Class to perform a POST request with the given parameters to a given url
  * @author its-zach

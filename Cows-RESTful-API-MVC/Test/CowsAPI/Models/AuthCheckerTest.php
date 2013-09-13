@@ -1,7 +1,5 @@
 <?php
 
-namespace CowsApi\Models;
-
 class AuthCheckerTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -15,7 +13,7 @@ class AuthCheckerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp()
 	{
-		$this->object = new \CowsAPI\Models\AuthChecker();
+		$this->object = new \CowsAPI\Models\DomainObjects\AuthChecker();
 	}
 	
 	public function testSignatureGeneration()	{

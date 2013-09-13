@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPI\Models;
+namespace CowsAPI\Models\HTTP;
 
 /**
  * Basic OO curl wrapper
@@ -13,7 +13,7 @@ class CurlWrapper implements CurlInterface	{
 	/**
 	 * Sets up a couple of core options necessary for our purpose (user agent, return transfer etc)
 	 */
-	public function CurlWrapper() {
+	public function __construct() {
 		$this->handle = curl_init();
 		
 		curl_setopt($this->handle, CURLOPT_RETURNTRANSFER, true);
@@ -39,11 +39,16 @@ class CurlWrapper implements CurlInterface	{
 		if (strlen($out) == 0) throw new \RuntimeException("Response was empty.");
 		return $out;
 	}
-	
+	/**
+	 * 
+	 * @codeCoverageIgnore
+	 */
 	public function getInfo($name) {
 		return curl_getinfo($this->handle, $name);
 	}
-	
+	/**
+	 * @codeCoverageIgnore
+	 */
 	public function close() {
 		curl_close($this->handle);
 	}

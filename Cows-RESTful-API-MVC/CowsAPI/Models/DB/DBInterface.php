@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPI\Models;
+namespace CowsAPI\Models\DB;
 
 /**
  * Interface to abstract DB Requests

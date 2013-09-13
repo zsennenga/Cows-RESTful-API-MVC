@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPI\Models;
+namespace CowsAPI\Models\DataMappers;
 
 class SessionManager extends GenericDataMapper  {
 

@@ -1,6 +1,9 @@
 <?php
 namespace CowsAPI\Models;
 
+use CowsAPI\Models\DB\DBWrapper;
+use CowsAPI\Models\HTTP\CurlWrapper;
+
 class DataMapperFactory	{
 	
 	private $db;
@@ -20,13 +23,11 @@ class DataMapperFactory	{
 	 * @return unknown
 	 */
 	public function get($className)	{
-		$className = "\\CowsApi\\Models\\" . $className;
+		$className = "\\CowsAPI\\Models\\DataMappers\\" . $className;
 		
-		$sm = null;
-		if ($className != "SessionManager") 
-			$sm = new SessionManager($this->curl, $this->db, $this->publicKey, null);
+		if (!class_exists($className)) throw new \Exception($className . " not found");
 	
-		return new $className($this->curl, $this->db, $this->publicKey, $sm);
+		return new $className($this->curl, $this->db, $this->publicKey);
 	}
 
 }

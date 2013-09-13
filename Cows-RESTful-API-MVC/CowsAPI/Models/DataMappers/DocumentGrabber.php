@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPI\Models;
+namespace CowsAPI\Models\DataMappers;
 /**
  * Gets the HTTP document at the specified URL
  * @author its-zach

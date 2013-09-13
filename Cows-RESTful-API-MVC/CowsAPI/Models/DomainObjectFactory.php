@@ -8,7 +8,10 @@ class DomainObjectFactory	{
 	}
 	
 	public function get($className)	{
-		$className = "\\CowsAPI\\Models\\" . $className;
+		$className = "\\CowsAPI\\Models\\DomainObjects\\" . $className;
+		
+		if (!class_exists($className)) throw new \Exception($className . " not found");
+		
 		return new $className();
 	}
 

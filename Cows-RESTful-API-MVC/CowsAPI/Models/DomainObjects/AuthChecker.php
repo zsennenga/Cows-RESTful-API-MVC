@@ -1,6 +1,6 @@
 <?php
 
-namespace CowsAPI\Models;
+namespace CowsAPI\Models\DomainObjects;
 /**
  * Used to check if a user's request has a valid signature
  * @author its-zach

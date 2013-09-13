@@ -1,5 +1,5 @@
 <?php
-namespace CowsAPI\Models;
+namespace CowsAPI\Models\DomainObjects;
 
 abstract class GenericParser	{
 	

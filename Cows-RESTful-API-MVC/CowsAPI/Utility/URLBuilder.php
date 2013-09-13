@@ -1,6 +1,11 @@
 <?php
 namespace CowsAPI\Utility;
-
+/**
+ * Creates URLs from config defines for use by the models/controllers
+ * 
+ * @author its-zach
+ * @codeCoverageIgnore
+ */
 class URLBuilder	{
 	
 	public function __construct()	{

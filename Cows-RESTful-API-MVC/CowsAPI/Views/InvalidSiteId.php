@@ -1,7 +1,15 @@
 <?php
 
 namespace CowsAPI\Views;
-
+/**
+ * View when the SiteId is invalid
+ * 
+ * Has no related controller because there's nothing to route/control
+ * 
+ * @author its-zach
+ * @codeCoverageIgnore
+ *
+ */
 class InvalidSiteId {
 
 	public function render()	{
