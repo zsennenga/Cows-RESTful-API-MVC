@@ -6,6 +6,7 @@ namespace CowsAPI\Models\DB;
  * PDO Database implementation
  * 
  * @author its-zach
+ * @codeCoverageIgnore
  *
  */
 class DBWrapper implements DBInterface	{

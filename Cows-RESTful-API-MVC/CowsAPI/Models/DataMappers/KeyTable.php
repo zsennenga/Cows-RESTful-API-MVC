@@ -1,7 +1,13 @@
 <?php
 
 namespace CowsAPI\Models\DataMappers;
-
+/**
+ * Manages Key table, can retrieve the private key for a given public key
+ * 
+ * 
+ * @author its-zach
+ * @codeCoverageIgnore
+ */
 class KeyTable extends GenericDataMapper  {
 	
 	

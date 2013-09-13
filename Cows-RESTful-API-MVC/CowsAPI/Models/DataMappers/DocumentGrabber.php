@@ -16,11 +16,9 @@ class DocumentGrabber extends GenericDataMapper {
 	 * 
 	 * Gets the document at the preset URL.
 	 * 
-	 * If
-	 * 
 	 * @param Site ID $siteId
 	 */
-	public function getDocument($siteId)	{
+	public function getDocument()	{
 		$this->curl->setOption(CURLOPT_CUSTOMREQUEST, "GET");
 		return $this->curl->execute();
 	}

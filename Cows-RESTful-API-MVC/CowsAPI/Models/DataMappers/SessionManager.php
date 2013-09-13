@@ -1,10 +1,20 @@
 <?php
 
 namespace CowsAPI\Models\DataMappers;
-
+/**
+ * Manages the connection between a Cows session and the DB/Curl parameters that maintain it
+ * 
+ * @author its-zach
+ * @codeCoverageIgnore
+ */
 class SessionManager extends GenericDataMapper  {
 
-private function genFilename()	{
+	/**
+	 * Generate a random filename for the cookie file
+	 * 
+	 * @return string
+	 */
+	private function genFilename()	{
 		$charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		$randString = '';
 		for ($i = 0; $i < 15; $i++) {
@@ -37,7 +47,12 @@ private function genFilename()	{
 		
 		return $this->db->query("SELECT cookieFile FROM " . DB_TABLE_SESSION . " WHERE publicKey = :publicKey AND siteId = :siteId");
 	}
-	
+	/**
+	 * Logout from cows, delete any cookies, and update the DB
+	 * 
+	 * @param SiteID $siteId
+	 * @param URL $url
+	 */
 	public function destroy($siteId, $url)	{
 		$this->curl->setOption(CURLOPT_CUSTOMREQUEST, "GET");
 		$this->curl->setOption(CURLOPT_URL, $url);
@@ -52,15 +67,20 @@ private function genFilename()	{
 		$this->db->query("DELETE FROM " . DB_TABLE_SESSION  . " WHERE publicKey = :publicKey AND siteId = :siteId");
 		
 	}
-	
+	/**
+	 * Tell curl where to find the cookies for any upcoming request
+	 * 
+	 * @param unknown $siteId
+	 * @codeCoverageIgnore
+	 */
 	public function authCurl($siteId)	{
 		
 		$cookieFile = $this->getCookieFile($siteId);
 		
 		if ($cookieFile === false) return;
 		
-		curl_setopt($this->curlHandle, CURLOPT_COOKIEJAR, $cookieFile);
-		curl_setopt($this->curlHandle, CURLOPT_COOKIEFILE, $cookieFile);
+		$this->curl->setOption(CURLOPT_COOKIEJAR, $cookieFile);
+		$this->curl->setOption(CURLOPT_COOKIEFILE, $cookieFile);
 		
 	}
 

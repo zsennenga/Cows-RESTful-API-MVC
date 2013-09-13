@@ -119,41 +119,24 @@ class ServiceFactory	{
 	 */
 	public function buildEventParams()	{
 		if (!isset($this->requestParams['Categories'])) throw new InvalidArgumentException("Categories is a required field.");
-		$cat = urldecode($this->requestParams['Categories']);
+		
+		$appendString = $this->explodeParameter("Categories", $this->requestParams['Categories']) . 
+						$this->explodeParameter("DisplayLocations", $this->requestParams['Locations']);
 		unset($this->requestParams['Categories']);
-		
-		$catString = "";
-		if (strlen($cat) > 0) {
-			$cat = explode("&",$cat);
-			foreach($cat as $str)	{
-				$catString .= "&Categories=" . urlencode($str);
-			}
-		}
-		
-		$locString = "";
-		if (isset($this->requestParams['Locations']))	{
-			$loc = urldecode($this->requestParams['Locations']);
-			unset($this->requestParams['Locations']);
-			if (strlen($loc) > 0) {
-				$loc = explode("&",$loc);
-				foreach($loc as $str)	{
-					$locString .= "&DisplayLocations=" . urlencode($str);
-				}
-			}
-				
-		}
-		
-		$appendString = "";
-		
-		if ($catString != "")	{
-			$appendString .= $catString;
-		}
-		
-		if ($locString != "")	{
-			$appendString .= $locString;
-		}
+		unset($this->requestParams['Locations']);
 		
 		return http_build_query(array_merge($this->requestParams,$this->getCowsFields())) . $appendString . "&siteId=" . $this->siteId;
+	}
+	
+	private function explodeParameter($fieldName, $data)	{
+		$retString = "";
+		if (strlen($data) > 0) {
+			$data = explode("&",$data);
+			foreach($data as $str)	{
+				$retString .= $fieldName . urlencode($str);
+			}
+		}
+		return $retString;
 	}
 	
 	/**

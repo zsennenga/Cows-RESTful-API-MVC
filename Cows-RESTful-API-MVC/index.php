@@ -4,20 +4,21 @@ require 'vendor/autoload.php';
 require_once 'CowsApi/Data/Config.php';
 
 //Handle headers
-
 $headerManager = new \CowsAPI\Utility\HeaderManager();
+
+//Instantiate all necessary objecst
 $class = "\\CowsAPI\\Templates\\".$headerManager->getResponseClass();
 $template = new $class();
 
-$db = new \CowsAPI\Models\DBWrapper();
+$db = new \CowsAPI\Models\DB\DBWrapper();
 $log = new \CowsAPI\Utility\Log($db, $table);
 
 $route = new \CowsAPI\Utility\Router($log, file_get_contents("CowsApi/Data/Routes.json"));
 $route->setRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
-//Instantiate
-$curl = new \CowsAPI\Models\CurlWrapper();
+$curl = new \CowsAPI\Models\HTTP\CurlWrapper();
 
+//Set Parameters
 if ($_SERVER['REQUEST_METHOD'] == "GET") 
 	$requestParams = $_GET;
 else if ($_SERVER['REQUEST_METHOD'] == "POST") 
