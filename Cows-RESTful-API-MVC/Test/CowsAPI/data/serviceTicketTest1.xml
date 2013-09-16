@@ -2,4 +2,4 @@
 				<cas:proxySuccess>
 					<cas:proxyTicket>ticket</cas:proxyTicket>
 				</cas:proxySuccess>
-			</cas:serviceResponse>
+</cas:serviceResponse>

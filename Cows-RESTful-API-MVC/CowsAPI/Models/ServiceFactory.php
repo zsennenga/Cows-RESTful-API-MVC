@@ -3,6 +3,7 @@
 namespace CowsAPI\Models;
 
 use CowsAPI\Utility\URLBuilder;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
 
 /**
  * 
@@ -46,7 +47,13 @@ class ServiceFactory	{
 		$this->validateSiteId($siteId);
 		$this->siteId = $siteId;
 	}
-	
+	/**
+	 * Auth curl such that any requests use whatever auth the user has
+	 * already establised with POST /session
+	 * 
+	 * @codeCoverageIgnore
+	 * 
+	 */
 	public function authCowsSession()	{
 		$sessionManager = $this->dataMapperFactory->get('SessionManager');
 		$sessionManager->authCurl($this->siteId);
@@ -57,6 +64,7 @@ class ServiceFactory	{
 	 * 
 	 * @param ClassName of a DomainObject Parser $parserClass
 	 * @param String $url
+	 * 
 	 */
 	private function grabAndParse($parserClass, $url)	{
 		$documentGrabber = $this->dataMapperFactory->get('DocumentGrabber');
@@ -74,7 +82,7 @@ class ServiceFactory	{
 	 */
 	public function getServiceTicket()	{
 		
-		if (!isset($this->requestParams['tgc'])) throw new InvalidArgumentException("TGC must be provided to create a ticket");
+		if (!isset($this->requestParams['tgc'])) throw new \InvalidArgumentException("TGC must be provided to create a ticket");
 		
 		$url = $this->urlBuilder->getCasProxyURL("http://cows.ucdavis.edu/its/Account/LogOn?returnUrl=http://cows.ucdavis.edu/its", $this->requestParams['tgc']);
 		
@@ -89,7 +97,7 @@ class ServiceFactory	{
 		$siteValidator = $this->dataMapperFactory->get('SiteValidator');
 		
 		if (!$siteValidator->validSite($siteId))
-			throw new InvalidArgumentException("Invalid Site Id");
+			throw new \InvalidArgumentException("Invalid Site Id");
 	}
 	
 	/**
@@ -118,7 +126,7 @@ class ServiceFactory	{
 	 * @return Parameters as a request body
 	 */
 	public function buildEventParams()	{
-		if (!isset($this->requestParams['Categories'])) throw new InvalidArgumentException("Categories is a required field.");
+		if (!isset($this->requestParams['Categories'])) throw new \InvalidArgumentException("Categories is a required field.");
 		
 		$appendString = $this->explodeParameter("Categories", $this->requestParams['Categories']) . 
 						$this->explodeParameter("DisplayLocations", $this->requestParams['Locations']);
@@ -129,12 +137,11 @@ class ServiceFactory	{
 	}
 	
 	private function explodeParameter($fieldName, $data)	{
+		if (strlen($data) == 0)  return "";
 		$retString = "";
-		if (strlen($data) > 0) {
-			$data = explode("&",$data);
-			foreach($data as $str)	{
-				$retString .= $fieldName . urlencode($str);
-			}
+		$data = explode("&",$data);
+		foreach($data as $str)	{
+			$retString .= $fieldName . urlencode($str);
 		}
 		return $retString;
 	}

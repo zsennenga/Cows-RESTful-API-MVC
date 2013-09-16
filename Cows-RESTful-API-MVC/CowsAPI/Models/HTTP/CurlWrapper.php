@@ -2,6 +2,7 @@
 
 namespace CowsAPI\Models\HTTP;
 
+use CowsAPI\Exceptions\CurlException;
 /**
  * Basic OO curl wrapper
  * @author its-zach
@@ -35,8 +36,8 @@ class CurlWrapper implements CurlInterface	{
 	 */
 	public function execute() {
 		$out = curl_exec($this->handle);
-		if ($out === false) throw new \RuntimeException("Unable to connect.");
-		if (strlen($out) == 0) throw new \RuntimeException("Response was empty.");
+		if ($out === false) throw new CurlException("Unable to connect.");
+		if (strlen($out) == 0) throw new CurlException("Response was empty.");
 		return $out;
 	}
 	/**

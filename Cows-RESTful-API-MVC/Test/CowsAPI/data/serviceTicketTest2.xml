@@ -2,4 +2,4 @@
 				<cas:proxyFailure code='INVALID_TICKET'>
 					ticket x not recognized
 				</cas:proxyFailure>
-			</cas:serviceResponse>
+</cas:serviceResponse>

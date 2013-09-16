@@ -1,6 +1,7 @@
 <?php
 namespace CowsAPI\Utility;
 
+use CowsAPI\Exceptions\InvalidDocumentException;
 /**
  *
  * The router takes a given URI and parses out URI parameters, and decides which
@@ -27,11 +28,11 @@ class Router {
 	 * 
 	 * @param Log $logger
 	 * @param Json $routeSource
-	 * @throws \InvalidArgumentException
+	 * @throws InvalidDocumentException
 	 */
 	public function __construct(Log $logger, $routeSource)	{
 		$this->routeArray = json_decode($routeSource, true);
-		if ($this->routeArray == false) throw new \InvalidArgumentException("Invalid Json");
+		if ($this->routeArray == false) throw new InvalidDocumentException("Invalid Json");
 		$this->log = $logger;
 		$this->prefix = null;
 		$this->class = "NoRoute";

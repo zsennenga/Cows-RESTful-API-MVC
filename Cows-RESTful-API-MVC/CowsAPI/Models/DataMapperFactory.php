@@ -3,6 +3,7 @@ namespace CowsAPI\Models;
 
 use CowsAPI\Models\DB\DBWrapper;
 use CowsAPI\Models\HTTP\CurlWrapper;
+use CowsAPI\Exceptions\InvalidClassException;
 
 class DataMapperFactory	{
 	
@@ -25,7 +26,7 @@ class DataMapperFactory	{
 	public function get($className)	{
 		$className = "\\CowsAPI\\Models\\DataMappers\\" . $className;
 		
-		if (!class_exists($className)) throw new \Exception($className . " not found");
+		if (!class_exists($className)) throw new InvalidClassException($className . " not found");
 	
 		return new $className($this->curl, $this->db, $this->publicKey);
 	}
