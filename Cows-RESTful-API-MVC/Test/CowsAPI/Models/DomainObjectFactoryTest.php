@@ -15,7 +15,7 @@ class DomainObjectFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 	
 	public function testClassCreationBad()	{
-		$this->setExpectedException('Exception');
+		$this->setExpectedException('\CowsAPI\Exceptions\InvalidClassException');
 		$this->object->get('Fake');
 	}
 
