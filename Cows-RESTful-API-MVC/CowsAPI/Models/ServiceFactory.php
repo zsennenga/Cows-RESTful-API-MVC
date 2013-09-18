@@ -139,7 +139,17 @@ class ServiceFactory	{
 	 * @codeCoverageIgnore
 	 */
 	public function getEvents()	{
-		return $this->grabAndParse('RSSParser', $this->urlBuilder->getCowsRssUrl($this->siteId, $this->requestParams));
+		$parser = $this->domainObjectFactory->get("RssParser");
+		
+		if (isset($this->requestParams['timeStart']) && isset($this->requestParams['timeEnd']))	{
+			$parser->setTimeBound($this->requestParams['timeStart'],$this->requestParams['timeEnd']);
+			unset($this->requestParams['timeEnd']);
+			unset($this->requestParams['timeStart']);
+		}
+		
+		$doc = $this->grabDocument($this->urlBuilder->getCowsRssUrl($this->siteId, $this->requestParams));
+		
+		return $parser->parse($doc);
 	}
 	
 	/**
