@@ -12,14 +12,20 @@ class Session extends BaseController	{
 		
 		try {
 			$ticket = $this->serviceFactory->getServiceTicket();
-		} catch (\Exception $e) {
+		} catch (\CowsAPI\Exceptions\BaseException $e) {
+			$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+			return $e->getMessage();
+		} catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), ERROR_CAS, 400);
 			return $e->getMessage();
 		}
 		
 		try {
 			$this->serviceFactory->createSession($ticket);
-		} catch (\Exception $e) {
+		} catch (\CowsAPI\Exceptions\BaseException $e) {
+			$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+			return $e->getMessage();
+		} catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), ERROR_COWS, 400);
 			return $e->getMessage();
 		}
@@ -34,7 +40,10 @@ class Session extends BaseController	{
 		
 		try {
 			$this->serviceFactory->destroySession();
-		} catch (\Exception $e) {
+		} catch (\CowsAPI\Exceptions\BaseException $e) {
+			$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+			return $e->getMessage();
+		} catch (\Exception $e)	{
 			$this->updateView($e->getMessage(), ERROR_COWS, 400);
 			return $e->getMessage();
 		}

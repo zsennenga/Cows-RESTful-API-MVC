@@ -14,9 +14,11 @@ class Event extends BaseController	{
 		if (isset($this->eventId))	{
 			try	{
 				$event = $this->serviceFactory->getEventById($this->eventId);
-			}
-			catch (\Exception $e)	{
-				$this->updateView($e->getMessage(), ERROR_CURL, 500);
+			} catch (\CowsAPI\Exceptions\BaseException $e) {
+				$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+				return $e->getMessage();
+			} catch (\Exception $e)	{
+				$this->updateView($e->getMessage(), ERROR_COWS, 400);
 				return $e->getMessage();
 			}
 			if (!isset($event))	{
@@ -29,9 +31,11 @@ class Event extends BaseController	{
 		else	{
 			try	{
 				$events = $this->serviceFactory->getEvents();
-			}
-			catch(\Exception $e)	{
-				$this->updateView($e->getMessage(), ERROR_CURL, 500);
+			} catch (\CowsAPI\Exceptions\BaseException $e) {
+				$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+				return $e->getMessage();
+			} catch (\Exception $e)	{
+				$this->updateView($e->getMessage(), ERROR_COWS, 400);
 				return $e->getMessage();
 			}
 			
@@ -48,16 +52,20 @@ class Event extends BaseController	{
 		}
 		try	{
 			$params = $this->serviceFactory->buildEventParams();
-		}
-		catch (\Exception $e)	{
-			$this->updateView($e->getMessage(), 1, 400);
+		} catch (\CowsAPI\Exceptions\BaseException $e) {
+			$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+			return $e->getMessage();
+		} catch (\Exception $e)	{
+			$this->updateView($e->getMessage(), ERROR_COWS, 400);
 			return $e->getMessage();
 		}
 		try	{
 			$newEventId = $this->serviceFactory->createEvent($params);
-		}
-		catch (\Exception $e)	{
-			$this->updateView($e->getMessage(), 1, 500);
+		} catch (\CowsAPI\Exceptions\BaseException $e) {
+			$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+			return $e->getMessage();
+		} catch (\Exception $e)	{
+			$this->updateView($e->getMessage(), ERROR_COWS, 400);
 			return $e->getMessage();
 		}
 		
@@ -71,8 +79,11 @@ class Event extends BaseController	{
 				$this->updateView("Unable to delete event", 1, 403);
 				return "Unable to delete event";
 			}
+		} catch (\CowsAPI\Exceptions\BaseException $e) {
+			$this->updateView($e->getMyMessage(), $e->getStatus() , $e->getResponseCode());
+			return $e->getMessage();
 		} catch (\Exception $e)	{
-			$this->updateView($e->getMessage(), 1, 500);
+			$this->updateView($e->getMessage(), ERROR_COWS, 400);
 			return $e->getMessage();
 		}
 		return "";
