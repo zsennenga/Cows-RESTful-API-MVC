@@ -24,9 +24,14 @@ class SingleEventParserTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame("test2", $out['title']);
 	}
 	
-	public function testFailParse()	{
+	public function testFailParseSetup()	{
 		$this->setExpectedException('\CowsAPI\Exceptions\InvalidDocumentException');
 		$this->object->parse("");
+	}
+	
+	public function testFailParseDoc()	{
+		$this->setExpectedException('\CowsAPI\Exceptions\InvalidDocumentException');
+		$this->object->parse("<html></html>");
 	}
 }
 ?>

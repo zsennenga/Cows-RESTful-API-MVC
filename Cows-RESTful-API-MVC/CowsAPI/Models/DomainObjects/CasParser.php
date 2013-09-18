@@ -15,7 +15,7 @@ class CasParser extends GenericParser {
 			return trim($out);
 		}
 		else	{
-			throw new CasException($out);
+			throw new CasException(ERROR_CAS,$out,500);
 		}
 	}
 }

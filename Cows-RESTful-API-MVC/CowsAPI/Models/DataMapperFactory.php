@@ -11,7 +11,7 @@ class DataMapperFactory	{
 	private $curl;
 	private $publicKey;
 	
-	public function __construct(DbWrapper $db, CurlWrapper $curl, $publicKey)	{
+	public function __construct(DBWrapper $db, CurlWrapper $curl, $publicKey)	{
 		$this->db = $db;
 		$this->curl = $curl;
 		$this->publicKey = $publicKey;
@@ -26,7 +26,7 @@ class DataMapperFactory	{
 	public function get($className)	{
 		$className = "\\CowsAPI\\Models\\DataMappers\\" . $className;
 		
-		if (!class_exists($className)) throw new InvalidClassException($className . " not found");
+		if (!class_exists($className)) throw new InvalidClassException(ERROR_GENERIC,$className . " not found", 500);
 	
 		return new $className($this->curl, $this->db, $this->publicKey);
 	}

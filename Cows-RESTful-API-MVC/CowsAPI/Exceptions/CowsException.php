@@ -6,7 +6,7 @@ namespace CowsAPI\Exceptions;
  * @author its-zach
  * @codeCoverageIgnore
  */
-class CasException extends BaseException {
+class CowsException extends BaseException {
 
 }
 ?>

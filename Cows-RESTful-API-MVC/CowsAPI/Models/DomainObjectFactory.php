@@ -17,7 +17,7 @@ class DomainObjectFactory	{
 	public function get($className)	{
 		$className = "\\CowsAPI\\Models\\DomainObjects\\" . $className;
 		
-		if (!class_exists($className)) throw new InvalidClassException($className . " not found");
+		if (!class_exists($className)) throw new InvalidClassException(ERROR_GENERIC, $className . " not found", 500);
 		
 		return new $className();
 	}

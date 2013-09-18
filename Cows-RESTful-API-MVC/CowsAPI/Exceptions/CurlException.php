@@ -6,7 +6,7 @@ namespace CowsAPI\Exceptions;
  * @author its-zach
  * @codeCoverageIgnore
  */
-class CurlException extends \Exception {
+class CurlException extends BaseException {
 
 }
 ?>

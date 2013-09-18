@@ -32,7 +32,7 @@ class Router {
 	 */
 	public function __construct(Log $logger, $routeSource)	{
 		$this->routeArray = json_decode($routeSource, true);
-		if ($this->routeArray == false) throw new InvalidDocumentException("Invalid Json");
+		if ($this->routeArray == false) throw new InvalidDocumentException(ERROR_PARAMETERS, "Invalid Json", 400);
 		$this->log = $logger;
 		$this->prefix = null;
 		$this->class = "NoRoute";
