@@ -53,7 +53,33 @@ class EventTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame("Test", $controller->GET());
 	}
 	
+	public function testGetEventIdException2()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('getEvents', 'getEventById'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('getEventById')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
+	
+		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
+		$this->assertSame("Test", $controller->GET());
+	}
+	
 	public function testGetEventsException()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('getEvents', 'getEventById'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('getEvents')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
+	
+		$controller = new \CowsAPI\Controllers\Event($this->view, null, $stub);
+		$this->assertSame("Test", $controller->GET());
+	}
+	
+	public function testGetEventsException2()	{
 		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
 						->disableOriginalConstructor()
 						->setMethods(array('getEvents', 'getEventById'))
@@ -190,6 +216,22 @@ class EventTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame("Test", $controller->POST());
 	}
 	
+	public function testPostBuildParamsException2()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('checkSession', 'buildEventParams', 'createEvent'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('checkSession')
+		->will($this->returnValue(true));
+		$stub->expects($this->any())
+		->method('buildEventParams')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
+	
+		$controller = new \CowsAPI\Controllers\Event($this->view, null, $stub);
+		$this->assertSame("Test", $controller->POST());
+	}
+	
 	public function testPostBuildParamsExceptionFail()	{
 		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
 		->disableOriginalConstructor()
@@ -218,6 +260,21 @@ class EventTest extends \PHPUnit_Framework_TestCase {
 		->method('createEvent')
 		->will($this->throwException(new \Exception("Test")));
 		
+		$controller = new \CowsAPI\Controllers\Event($this->view, null, $stub);
+		$this->assertSame("Test", $controller->POST());
+	}
+	public function testPostCreateEventException2()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('checkSession', 'buildEventParams', 'createEvent'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('checkSession')
+		->will($this->returnValue(true));
+		$stub->expects($this->any())
+		->method('createEvent')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
+	
 		$controller = new \CowsAPI\Controllers\Event($this->view, null, $stub);
 		$this->assertSame("Test", $controller->POST());
 	}
@@ -329,6 +386,19 @@ class EventTest extends \PHPUnit_Framework_TestCase {
 		$stub->expects($this->any())
 		->method('deleteEvent')
 		->will($this->throwException(new \Exception("Test")));
+	
+		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
+		$this->assertFalse("Unable to delete  event" == $controller->DELETE());
+	}
+	
+	public function testDeleteExceptionFail2()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('deleteEvent'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('deleteEvent')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
 	
 		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
 		$this->assertFalse("Unable to delete  event" == $controller->DELETE());

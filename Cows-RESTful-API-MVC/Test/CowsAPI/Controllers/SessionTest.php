@@ -27,6 +27,19 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame("Test", $controller->POST());
 	}
 	
+	public function testPostTicketException2()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('getServiceTicket', 'createSession'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('getServiceTicket')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
+	
+		$controller = new \CowsAPI\Controllers\Session($this->view, 1, $stub);
+		$this->assertSame("Test", $controller->POST());
+	}
+	
 	public function testPostTicketExceptionFail()	{
 		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
 		->disableOriginalConstructor()
@@ -62,6 +75,19 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
 		->method('createSession')
 		->will($this->throwException(new \Exception("Test")));
 		
+		$controller = new \CowsAPI\Controllers\Session($this->view, 1, $stub);
+		$this->assertFalse("Test " == $controller->POST());
+	}
+	
+	public function testPostSessionExceptionFail2()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('getServiceTicket', 'createSession'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('createSession')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
+	
 		$controller = new \CowsAPI\Controllers\Session($this->view, 1, $stub);
 		$this->assertFalse("Test " == $controller->POST());
 	}
@@ -128,6 +154,22 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue("Test" == $controller->DELETE());
 	}
 	
+	public function testDeleteDestroySessionException2()	{
+		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
+		->disableOriginalConstructor()
+		->setMethods(array('destroySession', 'checkSession'))
+		->getMock();
+		$stub->expects($this->any())
+		->method('checkSession')
+		->will($this->returnValue(true));
+		$stub->expects($this->any())
+		->method('destroySession')
+		->will($this->throwException(new \CowsAPI\Exceptions\BaseException(1,"Test",1)));
+	
+		$controller = new \CowsAPI\Controllers\Session($this->view, 1, $stub);
+		$this->assertTrue("Test" == $controller->DELETE());
+	}
+	
 	public function testDeleteDestroySessionExceptionFail()	{
 		$stub = $this->getMockBuilder("\\CowsAPI\\Models\\ServiceFactory")
 		->disableOriginalConstructor()
@@ -169,6 +211,8 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
 		$controller = new \CowsAPI\Controllers\Session($this->view, 1, $stub);
 		$this->assertFalse(" " == $controller->DELETE());
 	}
+	
+	
 	
 }
 ?>
