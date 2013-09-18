@@ -11,8 +11,9 @@ class CasParser extends GenericParser {
 		$out = str_replace('\n','', $out);
 		$out = str_replace('\t','', $out);
 		$out = str_replace('\r', '', $out);
+		$out = trim($out);
 		if (strpos($doc,"proxyFailure") === false)	{
-			return trim($out);
+			return $out;
 		}
 		else	{
 			throw new CasException(ERROR_CAS,$out,500);

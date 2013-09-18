@@ -1,0 +1,526 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	
+	Create Event
+
+</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><link type="text/css" href="/Content/cupertino/jquery-ui-1.8.2.custom.css" rel="Stylesheet" /><link href="/Content/telerik/telerik.common.min.css" rel="stylesheet" type="text/css" /><link href="/Content/telerik/telerik.Windows7.min.css" rel="stylesheet" type="text/css" /><link href="/Content/Cows.css" rel="stylesheet" type="text/css" /><link href="/Content/print.css" rel="stylesheet" type="text/css" media="print" />
+    <link href="/Content/Cows.its.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/fg.menu.css" rel="stylesheet" type="text/css" />
+    
+	
+    <script type="text/javascript" src="/Scripts/jquery-1.4.2.min.js"></script>
+    
+    
+    
+
+    <script type="text/javascript" src="/Scripts/jquery-ui-1.8.2.custom.min.js"></script>
+    
+    
+    <script type="text/javascript" src="/Scripts/fg.menu.js"></script>
+
+    <script type="text/javascript" src="/Scripts/jquery-validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-validate/jquery.validate.unobtrusive.js"></script>
+    
+
+    </head>
+
+<body>
+
+    <div id="sidebar">
+    
+        <div id="logo">
+
+        </div>
+        
+        <div id="logindisplay">
+        </div> 
+
+        <div id="nav">
+            
+
+    <script type="text/javascript">
+    	$(function () {
+    		$("#newitem").fgmenu({						// create an fg.menu to contain submenu under "add item"
+    			content: $("#newitem > ul").html()
+    		});
+
+//    		$("#help").menu({							// create an fg.menu to contain submenu under "help"
+//    			content: $("#help > ul").html()
+//    		});
+
+    		$("#toolbar > ul > li")						// add common jquery ui themable classes to toolbar buttons and links
+				.addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only")
+				.hover(
+					function () { $(this).addClass("ui-state-hover"); }, 
+					function () { $(this).removeClass("ui-state-hover"); })
+				.children("a")
+				.addClass("ui-button-icon-primary ui-icon");
+    	});
+    </script>
+
+
+    <div id="toolbar">  
+        <ul>
+            <li id="home">
+				<a class="ui-icon-home" href="/its" title="home">home</a>
+			</li>
+
+			
+            <li id="dashboard">
+				<a class="ui-icon-folder-collapsed" href="/its/Request" title="dashboard">dashboard</a>
+			</li>
+			
+            <li id="newitem"><a href="#" title="new item" class="ui-icon-plusthick">new item</a>
+                <ul>
+                    
+						<li id="newevent">
+							<a href="/its/Event/Create">Add Event</a>
+						</li>
+					
+						<li id="newannouncement">
+							<a href="/its/Announcement/Create">Add Announcement</a>
+						</li>
+					
+                </ul>
+            </li>
+			
+            <li id="settings">
+				<a class="ui-icon-wrench" href="/its/Home/Setup" title="settings">settings</a>
+            </li>
+			
+
+            <li id="help">
+				<a class="ui-icon-help" href="/its/Help/Event" title="help">help</a>
+
+			</li>
+
+        </ul>
+    </div>
+               
+                  
+        </div>
+        
+        <div id="widgets">
+			
+	<div id="location" class="widget ui-widget ui-widget-content ui-corner-all">
+		<div class="ui-widget-header ui-corner-all">Location</div>
+		<div class="list">
+			<ul>
+                <li><input type='radio' id='radio-location' name='radio' />
+					<label for="radio-location">External Location</label></li>
+                <li><input type='radio' id='radio-room' name='radio' checked='checked'/>
+					<label for="radio-room">Reserve a Room</label></li>
+			</ul>
+            
+		</div>
+	</div>
+
+            
+        </div>
+
+        
+
+		<div id="copyright">
+			&copy; 2011 UC Regents
+		</div>
+        
+    </div>
+    
+    <div id="main">
+
+        <div id="header">
+            
+			<div id="login">
+				zennenga
+		<a href="/its/Account/LogOff">Log Off</a>
+
+			</div>
+        </div>
+    
+        <div id="content">
+            
+            <div id="message"></div>
+            
+
+<script type="text/javascript">
+    $(function() {
+        $("#cancelbutton").click(function() {
+            history.go(-1);
+        });
+        // create ui buttons for save/cancel/delete
+        $("#buttons > input, #buttons > a").button();
+    });
+</script>
+
+    
+
+    <form action="/its/Event/Create" method="post"><input name="__RequestVerificationToken" type="hidden" value="Sq2VoO53mNnRGt75g4GmSvUi0xMeE4Dei4Q9l23cdFuWEQ9V53Y3XdEk+j0f77SvkK/5WXca79HXlH/D0xPu6VSkwBNww2WpaF+rYv2jilWtvql5dLBydJz9+Bzdd2Gn5sK0rXLYSooCe5136WAXwtnnhE0=" />
+
+        <fieldset class="event">
+            <legend>New Event</legend>
+
+            
+
+            <input id="SiteId" name="SiteId" type="hidden" value="its" />
+			<input id="EventStatusName" name="EventStatusName" type="hidden" value="approved" />
+			<input id="IsOffRecurrence" name="IsOffRecurrence" type="hidden" value="False" />
+			<input id="RecurrenceAppliesTo" name="RecurrenceAppliesTo" type="hidden" value="None" />
+
+            
+
+<link rel="Stylesheet" type="text/css" href="/Content/jquery.multiselectdropdown.css" />
+
+
+
+<script type="text/javascript" src="/Scripts/crockford.js"></script>
+<script type="text/javascript" src="/Scripts/datemanager.js"></script>
+<script type="text/javascript" src="/Scripts/jquery.multiselectdropdown.js"></script>
+<script type="text/javascript" src="/Scripts/editevent.js"></script>
+<script type="text/javascript" src="/Scripts/recurrence.js"></script>
+<script type="text/javascript" src="/Scripts/jquery.maxlength.js"></script>
+
+<script type="text/javascript" src="/Scripts/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$("#Description").tinymce({
+			script_url: "/Scripts/tiny_mce/tiny_mce.js",
+			mode: "textareas",
+			theme: "advanced",
+			editor_selector: "tinymce",
+			//plugins: "bbcode",	// bbcode apparently overrides entity_encoding 
+			plugins: "paste",
+			width: "330px",
+
+			theme_advanced_toolbar_location: "top",
+			theme_advanced_toolbar_align: "left",
+			theme_advanced_buttons1: "bold,italic,|,link,unlink,|,pastetext,pasteword,selectall", 
+			theme_advanced_buttons2: "",
+			theme_advanced_buttons3: "",
+			theme_advanced_statusbar_location: "bottom",
+			theme_advanced_resizing: true,
+			remove_linebreaks: false,
+			paste_auto_cleanup_on_paste: true,
+
+			valid_elements: "p,b,i,strong,em,a[href]",
+			entity_encoding: "named",
+			relative_urls: false,
+			remove_script_host: false,
+			document_base_url: "http://cows.ucdavis.edu/"
+
+		});
+
+		// update tinyMCE underlying DOM element on save        // ref: http://stackoverflow.com/questions/4904936/asp-net-mvc-3-unobtrusive-validation-submit-and-tinymce
+		$("input[type='submit']").click(function () {
+			tinyMCE.triggerSave();
+		});
+
+		// limit & display chars/remaining on visible textareas
+		$('textarea[maxlength]:visible, input[maxlength]').maxlength();
+	});
+</script>
+
+		<input id="WasRepeating" name="WasRepeating" type="hidden" value="False" />
+			<input id="ByRoom" name="ByRoom" type="hidden" value="True" />
+			<input id="gridScrollLeft" name="gridScrollLeft" type="hidden" value="480" />
+
+            <input id="ConflictLastModified" name="ConflictLastModified" type="hidden" value="1/1/0001 12:00:00 AM" />
+
+
+            <div class='event-main'>
+			    <div class="EventTitle">
+				    <div class="editor-label">
+					    <label for="EventTitle">Title</label>
+				    </div>
+				    <div class="editor-field">
+					    <input id="EventTitle" maxlength="100" name="EventTitle" type="text" value="" />
+					    
+				    </div>
+                </div>
+
+	            <div class="Location by-location">
+		            <div class="editor-label">
+			            <label for="Location">Location</label>
+		            </div>
+		            <div class="editor-field">
+			            <input class="text-box single-line" id="Location" name="Location" type="text" value="" />
+			            
+		            </div>
+                </div>
+                <div class="BuildingRoomDropdown by-room">
+                    <div class="editor-label">
+                        <label for="BuildingAndRoom">Room</label>
+                    </div>
+                    <div class="editor-field">
+                        <select id="BuildingAndRoom" name="BuildingAndRoom"><option value=""></option>
+<option value="1590_Tilia!1142">1590_Tilia 1142 </option>
+<option value="1605_Tilia!1103">1605_Tilia 1103 </option>
+<option value="1605_Tilia!1111">1605_Tilia 1111 </option>
+<option value="1605_Tilia!1162">1605_Tilia 1162 </option>
+<option value="1715_Tilia!1106">1715_Tilia 1106 </option>
+<option value="1715_Tilia!1119">1715_Tilia 1119 </option>
+<option value="1715_Tilia!1121">1715_Tilia 1121 </option>
+<option value="1715_Tilia!1123">1715_Tilia 1123 </option>
+<option value="1715_Tilia!1161">1715_Tilia 1161 </option>
+<option value="215_Sage!1104">215_Sage 1104 </option>
+<option value="215_Sage!1113">215_Sage 1113 </option>
+</select>
+                    </div>
+                </div>
+
+			    <div class="StartDate">
+				    <div class="editor-label">
+					    <div class='by-room'></div>
+					    <label for="StartDate">Starts</label>
+				    </div>
+				    <div class="editor-field">
+					    <div class='by-room time-headers'>
+					        <div id='dateheader'></div>
+					        <div id='timeheader'>reserve</div>
+					        <div id='displaytimeheader'>display</div>
+					    </div>
+					    <input class="text-box single-line" id="StartDate" name="StartDate" type="text" value="9/18/2013" />
+					    <input class="text-box single-line" id="StartTime" name="StartTime" type="text" value="8:00 AM" />
+					    <span class='by-room'><input class="text-box single-line" id="DisplayStartTime" name="DisplayStartTime" type="text" value="8:00 AM" /></span>
+					    
+					    
+					    <span class='by-room'></span>
+				    </div>
+                </div>
+			    <div class="EndDate">
+				    <div class="editor-label">
+					    <label for="EndDate">Ends</label>
+				    </div>
+				    <div class="editor-field">
+					    <input class="text-box single-line" id="EndDate" name="EndDate" type="text" value="9/18/2013" />
+					    <input class="text-box single-line" id="EndTime" name="EndTime" type="text" value="9:00 AM" />
+					    <span class='by-room'><input class="text-box single-line" id="DisplayEndTime" name="DisplayEndTime" type="text" value="9:00 AM" /></span>
+					    
+					    
+					    <span class='by-room'></span>
+				    </div>
+                </div>
+
+			    <div class="ContactName">
+				    <div class="editor-label">
+					    <label for="ContactName">Contact Name</label>
+				    </div>
+				    <div class="editor-field">
+					    <input class="text-box single-line" id="ContactName" name="ContactName" type="text" value="Zachary Ennenga" />
+					    
+				    </div>
+                </div>
+			    <div class="ContactEmail">
+				    <div class="editor-label">
+					    <label for="ContactEmail">Contact Email</label>
+				    </div>
+				    <div class="editor-field">
+					    <input class="text-box single-line" id="ContactEmail" name="ContactEmail" type="text" value="zennenga@ucdavis.edu" />
+					    
+				    </div>
+                </div>
+			    <div class="ContactPhone">
+				    <div class="editor-label">
+					    <label for="ContactPhone">Contact Phone</label>
+				    </div>
+				    <div class="editor-field">
+					    <input class="text-box single-line" id="ContactPhone" name="ContactPhone" type="text" value="" />
+					    
+				    </div>
+                </div>
+
+                <div class="Description">
+                    <div class="editor-label">
+                        <label for="Description">Description</label>
+                    </div>
+                    <div class="editor-field">
+                        <textarea cols="20" id="Description" name="Description" rows="2">
+</textarea>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class='event-float'>
+                <div>
+			        <div class="EventTypeName">
+				        <div class="editor-label">
+					        <label for="EventTypeName">Event Type</label>
+				        </div>
+				        <div class="editor-field">
+					        <select id="EventTypeName" name="EventTypeName"><option value=""></option>
+<option value="Board_Meeting">Board Meeting</option>
+<option value="China_Center">China Center</option>
+<option value="CWEE">CWEE Meetings</option>
+<option value="EEC">EEC Meetings</option>
+<option value="EI_Seminars">EI Seminars</option>
+<option value="Energy_Institute">Energy Institute Meetings</option>
+<option value="ITS_Seminar">ITS Friday Seminars</option>
+<option value="Maintenance_Other">Maintenance/Other</option>
+<option value="Meetings">ITS Meetings</option>
+<option value="NextSTEPS_Seminars">NextSTEPS Seminars</option>
+<option value="Office_Hours">Office Hours</option>
+<option value="Other_ITS_Seminars">Other ITS Seminars</option>
+<option value="Phev">PH&amp;EV</option>
+<option value="Policy_Institute">Policy Institute</option>
+<option value="STEPS">NextSTEPS</option>
+<option value="WCEC_Meetings">WCEC Meetings</option>
+</select>
+					        
+				        </div>
+                    </div>
+                    <div class="Categories">
+                        <div class="editor-label">
+                            <label for="Categories">Categories</label>
+                        </div>
+                        <div class="editor-field">
+					        <select id="Categories" multiple="multiple" name="Categories" style="width: 156px;"><option value="Class">Classes</option>
+<option value="Conference">Conferences</option>
+<option value="Meeting">Meetings</option>
+<option value="Other">Other</option>
+<option value="Seminars">Seminars</option>
+</select>
+					        
+                        </div>
+                    </div>
+                    <div class="DisplayLocations">
+                        <div class="editor-label">
+                            <label for="DisplayLocations">Display Locations</label>
+                        </div>
+                        <div class="editor-field">
+					        <select id="DisplayLocations" multiple="multiple" name="DisplayLocations"><option value="Front-TV">Show on front TV</option>
+<option value="ITSWebsite">Homepage event listings</option>
+</select>
+					        
+                        </div>
+                    </div>
+
+                    <div class="Recurrence">
+                        <div class="editor-label">
+                            <label for="IsRepeating">Event Repeats</label>
+                        </div>
+                        <div class="editor-field">
+                            <input id="IsRepeating" name="IsRepeating" type="checkbox" value="true" /><input name="IsRepeating" type="hidden" value="false" />
+                        </div>
+                        <div id="recurrence-body">
+                            <div id="recurrence-margin"></div>
+                            <div id="recurrence-params">
+                                <div class="RecurrenceFrequency">
+                                    <div class="editor-label">
+                                        <label for="RecurrenceFrequency">Every</label>
+                                    </div>
+                                    <div class="editor-field">
+                                        <input class="text-box single-line" id="RecurrenceFrequency" name="RecurrenceFrequency" type="text" value="1" />
+                                        <select id="RecurrenceType" name="RecurrenceType"><option value="D">day</option>
+<option value="W">week</option>
+<option value="M">month</option>
+</select>
+                                    </div>
+                                </div>
+                                <div class="recurrence-frequency-w">
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th><label for="RecurrenceSunday">Su</label></th>
+                                            <th><label for="RecurrenceMonday">Mo</label></th>
+                                            <th><label for="RecurrenceTuesday">Tu</label></th>
+                                            <th><label for="RecurrenceWednesday">We</label></th>
+                                            <th><label for="RecurrenceThursday">Th</label></th>
+                                            <th><label for="RecurrenceFriday">Fr</label></th>
+                                            <th><label for="RecurrenceSaturday">Sa</label></th>
+                                        </tr>
+                                        <tr>
+                                            <td>on:</td>
+                                            <td><input class="check-box" id="RecurrenceSunday" name="RecurrenceSunday" type="checkbox" value="true" /><input name="RecurrenceSunday" type="hidden" value="false" /></td>
+                                            <td><input class="check-box" id="RecurrenceMonday" name="RecurrenceMonday" type="checkbox" value="true" /><input name="RecurrenceMonday" type="hidden" value="false" /></td>
+                                            <td><input class="check-box" id="RecurrenceTuesday" name="RecurrenceTuesday" type="checkbox" value="true" /><input name="RecurrenceTuesday" type="hidden" value="false" /></td>
+                                            <td><input class="check-box" id="RecurrenceWednesday" name="RecurrenceWednesday" type="checkbox" value="true" /><input name="RecurrenceWednesday" type="hidden" value="false" /></td>
+                                            <td><input class="check-box" id="RecurrenceThursday" name="RecurrenceThursday" type="checkbox" value="true" /><input name="RecurrenceThursday" type="hidden" value="false" /></td>
+                                            <td><input class="check-box" id="RecurrenceFriday" name="RecurrenceFriday" type="checkbox" value="true" /><input name="RecurrenceFriday" type="hidden" value="false" /></td>
+                                            <td><input class="check-box" id="RecurrenceSaturday" name="RecurrenceSaturday" type="checkbox" value="true" /><input name="RecurrenceSaturday" type="hidden" value="false" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="RecurrenceIsDayOfMonth recurrence-frequency-m">
+                                    <div class="editor-label">
+                                        <label for="RecurrenceIsDayOfMonth">on the</label>
+                                    </div>
+                                    <div class="editor-field">
+                                        <select id="RecurrenceIsDayOfMonth" name="RecurrenceIsDayOfMonth"><option value="true">day of the month</option>
+<option selected="selected" value="false">day of the week</option>
+</select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="recurrence-dates">
+
+                                <div class="RecurrenceStartDate">
+                                    <div class="editor-label">
+                                        <label for="RecurrenceStartDate">From</label>
+                                    </div>
+                                    <div class="editor-field">
+                                        <input class="text-box single-line" id="RecurrenceStartDate" name="RecurrenceStartDate" type="text" value="9/18/2013" />
+                                    </div>
+                                </div>
+
+                                <div class="RecurrenceEndDate">
+                                    <div class="editor-label">
+                                        <label for="RecurrenceEndDate">Until</label>
+                                    </div>
+                                    <div class="editor-field">
+                                        <input class="text-box single-line" id="RecurrenceEndDate" name="RecurrenceEndDate" type="text" value="10/18/2013" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+		        <div class="Notes">
+			        <div>
+				        <label for="Notes">Notes for Approver (will not display)</label>
+			        </div>
+			        <div>
+						
+				        <textarea cols="35" id="Notes" maxlength="400" name="Notes" rows="5">
+</textarea>
+				        
+			        </div>
+                </div>
+
+            </div>
+
+            <hr class='event-clear' />
+
+            <div class='event-tail'>
+				<input id="EventStatusName" name="EventStatusName" type="hidden" value="approved" />
+				
+
+				<div id="buttons">
+					<input type="submit" id="savebutton" value="Save" />
+					<input type="button" id="cancelbutton" value="Cancel" />
+					
+				</div>
+
+                <div id='grid-controls' class='by-room ui-widget'>
+                    <div id="grid-prev"><button></button></div><div id="grid-date"></div><div id="grid-next"><button></button></div>
+                </div>
+                <div id='room-grid' class='by-room'>
+                    room grid here
+                </div>
+            </div>
+
+                    
+                
+
+
+        </fieldset>
+
+    </form>
+        </div>
+    </div>
+</body>
+</html>

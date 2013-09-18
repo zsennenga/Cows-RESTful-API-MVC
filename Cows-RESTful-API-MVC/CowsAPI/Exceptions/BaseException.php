@@ -1,7 +1,11 @@
 <?php
 
 namespace CowsAPI\Exceptions;
-
+/**
+ * Exception for CowsAPI classes
+ * @author its-zach
+ * @codeCoverageIgnore
+ */
 class BaseException extends \Exception {
 
 	protected $statusCode;

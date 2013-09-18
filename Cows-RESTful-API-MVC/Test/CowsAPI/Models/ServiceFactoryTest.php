@@ -20,6 +20,13 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 					->will($this->returnValue($ret));
 		return $stub;
 	}
+	private function getMockForGrabBase($ret, $params = array())	{
+		$stub = $this->getMock('\CowsAPI\Models\ServiceFactory', array('grabDocument'), array(new DomainObjectFactory(),$this->getDataMapper(), $params, new URLBuilder(), 'its'));
+		$stub->expects($this->any())
+		->method('grabDocument')
+		->will($this->returnValue($ret));
+		return $stub;
+	}
 	
 	private function getMockForBuild($ret, $params = array())	{
 		$stub = $this->getMock('\CowsAPI\Models\ServiceFactory', array('getCowsFields'), array(new DomainObjectFactory(),$this->getDataMapper(), $params, new URLBuilder(), 'its'));
@@ -89,6 +96,17 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 		
 		$this->assertTrue($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958e8", "GET", "/"));
 		$this->assertFalse($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958de8", "GET", "/"));
+	}
+	
+	public function testGetEventId()	{
+		$doc = file_get_contents(__DIR__ . "/../data/eventIdTest1.json");
+		$obj = $this->getMockForGrabBase($doc, array(
+				'StartDate' => 'blah',
+				'EndDate' => 'blah',
+				'Categories' => 'blah',
+				'EventTitle' => 'Development Team Meeting',
+				'BuildingAndRoom' => "1605_Tilia!1162"));
+		$this->assertSame(1, $obj->findEventId());
 	}
 }
 ?>

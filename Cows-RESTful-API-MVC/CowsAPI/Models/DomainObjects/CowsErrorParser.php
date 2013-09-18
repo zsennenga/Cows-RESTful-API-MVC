@@ -6,7 +6,7 @@ class CowsErrorParser extends HTMLParser {
 	public function parse($doc)	{
 		$this->setupDoc($doc);
 		
-		$div = $this->doc->query('//div[@class="validation-summary-errors"]');
+		$div = $this->domDoc->query('//div[@class="validation-summary-errors"]');
 		
 		//Any results means cows threw an error
 		if ($div->length > 0)	{
@@ -17,9 +17,10 @@ class CowsErrorParser extends HTMLParser {
 		
 		//Cows likes to throw generic errors sometimes for no reason
 		//Well okay there is usually a reason
-		if (strstr($this->rawData,"Error") !== false)	{
+		if (strstr($doc,"Error") !== false || strstr($doc,"error") !== false)	{
 			throw new CowsException(ERROR_COWS,"COWS Error: Unknown Problem occurred.",400);
 		}
+		return true;
 	}
 }
 ?>

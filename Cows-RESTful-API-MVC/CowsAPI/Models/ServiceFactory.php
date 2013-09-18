@@ -68,14 +68,24 @@ class ServiceFactory	{
 	 * @codeCoverageIgnore
 	 */
 	public function grabAndParse($parserClass, $url)	{
-		$documentGrabber = $this->dataMapperFactory->get('DocumentGrabber');
+		$document = $this->grabDocument($url);
 		$parser = $this->domainObjectFactory->get($parserClass);
+		return $parser->parse($document);
+	}
+	/**
+	 * Gets a document and returns it
+	 * 
+	 * @param URL $url
+	 * @codeCoverageIgnore
+	 */
+	public function grabDocument($url)	{
+		$documentGrabber = $this->dataMapperFactory->get('DocumentGrabber');
 		
 		$documentGrabber->setUrl($url);
 		
-		$document = $documentGrabber->getDocument($this->siteId);
-		return $parser->parse($document);
+		return $documentGrabber->getDocument($this->siteId);
 	}
+	
 	/**
 	 * Check if cows threw any errors
 	 * 
@@ -145,6 +155,8 @@ class ServiceFactory	{
 		$appendString = $this->getCatLoc();
 		
 		$paramArray= array_merge($this->requestParams,$this->getCowsFields());
+		unset($paramArray['Categories']);
+		unset($paramArray['Locations']);
 		//$paramArray= array_merge($this->requestParams,array());
 		$paramArray['siteId'] = $this->siteId;
 		
@@ -160,8 +172,6 @@ class ServiceFactory	{
 		$retVal .= $this->explodeParameter("Categories", $this->requestParams['Categories']);
 		if (isset($this->requestParams['Locations']))
 			$retVal .= $this->explodeParameter("DisplayLocations", $this->requestParams['Locations']);
-		unset($this->requestParams['Categories']);
-		unset($this->requestParams['Locations']);
 		return $retVal;
 	}
 	/**
@@ -251,7 +261,29 @@ class ServiceFactory	{
 		
 		$this->parseForErrors($doc);
 		
-		return $this->findEventById($params);
+		return $this->findEventId();
+	}
+	
+	public function findEventId()	{
+		$baseUrl = $this->urlBuilder->getCowsEventJson($this->siteId);
+		
+		$idParams = array();
+		$idParams['startDate'] = $this->requestParams['StartDate'];
+		$idParams['endDate'] = $this->requestParams['EndDate'];
+		$idParams = http_build_query($idParams);
+		$idParams .= $this->explodeParameter("Categories", $this->requestParams['Categories']);
+		
+		$url = $baseUrl . "?" . $idParams;
+		
+		$doc = $this->grabDocument($url);
+		
+		$parser = $this->domainObjectFactory->get('EventJsonParser');
+		
+		$parser->setEventTitle($this->requestParams['EventTitle']);
+		$parser->setBuildingRoom($this->requestParams['BuildingAndRoom']);
+		
+		return $parser->parse($doc);
+		
 	}
 	
 	/**

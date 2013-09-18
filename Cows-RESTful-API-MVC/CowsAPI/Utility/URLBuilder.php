@@ -50,7 +50,7 @@ class URLBuilder	{
 	}
 	
 	public function getCowsEventJson($siteId)	{
-		COWS_BASE_PATH . $siteId . COWS_BASE_EVENT_PATH . "/jsonbyday";
+		return COWS_BASE_PATH . $siteId . COWS_BASE_EVENT_PATH . "/jsonbyday";
 	}
 }
 ?>
