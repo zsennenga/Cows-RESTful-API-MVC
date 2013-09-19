@@ -4,10 +4,10 @@ require 'vendor/autoload.php';
 require_once 'CowsApi/Data/Config.php';
 
 //Handle headers
-$headerManager = new \CowsAPI\Utility\HeaderManager();
+$headerManager = new \CowsAPI\Utility\HeaderManager(apache_request_headers());
 
 //Instantiate all necessary objecst
-$class = "\\CowsAPI\\Templates\\".$headerManager->getResponseClass();
+$class = "\CowsAPI\\Templates\\".$headerManager->getResponseClass();
 $template = new $class();
 
 $db = new \CowsAPI\Models\DB\DBWrapper();
