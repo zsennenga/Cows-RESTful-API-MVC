@@ -16,7 +16,7 @@ require_once("Event.php");
  * @author its-zach
  *
  */
-class eventSequence	{
+class EventSequence	{
 	/**
 	 * eventList
 	 * 
@@ -44,9 +44,9 @@ class eventSequence	{
 	function __construct($eventArray)	{
 		$this->eventList = array();
 		foreach ($eventArray as $event)	{
-			array_push($this->eventList,new event($event));
+			array_push($this->eventList,new Event($event));
 		}
-		usort($this->eventList,'eventSequence::doSort');
+		usort($this->eventList,'\CowsAPI\Models\DomainObjects\RSS\EventSequence::doSort');
 		$this->displayPast = false;
 	}
 	/**
@@ -58,10 +58,11 @@ class eventSequence	{
 	 * @param array $es
 	 * @param string $startTime
 	 * @param string $endTime
+	 * 
 	 */
 	public static function createSequenceFromArrayTimeBounded($eventArray, $startTime, $endTime)	{
-		$eventSource = new eventSequence($eventArray);
-		$eventOut = new eventSequence(array());
+		$eventSource = new EventSequence($eventArray);
+		$eventOut = new EventSequence(array());
 		foreach($eventSource->getList() as $event)	{
 			if ($event->getStartTimestamp() >= $startTime
 					&& $event->getEndTimestamp() <= $endTime)	{
@@ -80,9 +81,10 @@ class eventSequence	{
 	 * @param eventSequence $es
 	 * @param string $startTime
 	 * @param string $endTime
+	 * @codeCoverageIgnore
 	 */
 	public static function createSequenceFromSequenceTimeBounded($eventArray, $startTime, $endTime)	{
-		$eventOut = new eventSequence(array());
+		$eventOut = new EventSequence(array());
 		foreach($eventArray->getList() as $event)	{
 			if ($event->getStartTimestamp() >= strtotime($startTime)
 					&& $event->getEndTimestamp() <= strtotime($endTime))	{
@@ -98,28 +100,11 @@ class eventSequence	{
 	 * setDisplayPast
 	 * 
 	 * sets the variable DisplayPast
-	 * 
+	 * @codeCoverageIgnore
 	 * @param boolean $bool
 	 */
 	function setDisplayPast($bool)	{
 		$this->displayPast = $bool;
-	}
-	/**
-	 * 
-	 * toString
-	 * 
-	 * Returns a string containing the html to display all the events described by this eventSequence
-	 * 
-	 * @return string
-	 */
-	function toString()	{
-		$str = "";
-		foreach($this->eventList as $event)	{
-			if (!$event->isPast() || $this->displayPast)	{
-				$str .= $event->toString();
-			}
-		}
-		return $str;
 	}
 	/**
 	 * toArray
@@ -137,12 +122,16 @@ class eventSequence	{
 	 * getList
 	 * 
 	 * returns the internal eventList
-	 * 
+	 * @codeCoverageIgnore
 	 * @return array
 	 */
 	function getList()	{
 		return $this->eventList;
 	}
+	/**
+	 * @codeCoverageIgnore
+	 * @param Event $event
+	 */
 	function addEvent($event)	{
 		array_push($this->eventList,$event);
 	}
@@ -151,6 +140,8 @@ class eventSequence	{
 	 * doSort
 	 *
 	 * Actual sort function used by uasort. Sorts by date and time.
+	 *
+	 * @codeCoverageIgnore
 	 *
 	 * @param event $a
 	 * @param event $b

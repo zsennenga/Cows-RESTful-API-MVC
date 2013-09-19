@@ -18,7 +18,7 @@ require_once('EventSequence.php');
  * @author Zachary Ennenga
  *
  */
-class event	{
+class Event	{
 	/**
 	 * Event Title
 	 * @var string
@@ -76,45 +76,10 @@ class event	{
 	 * Checks if a event occured in the past. 
 	 * 
 	 * @return boolean
+	 * @codeCoverageIgnore
 	 */
 	function isPast()	{
 		return time() > strtotime($this->date . " ". $this->endTime);
-	}
-	/**
-	 * isPastOffset
-	 *
-	 * Checks if a event occured in the past.
-	 *
-	 * @param int $offset time offset in hours when checking if an event was in the past.
-	 * @return boolean
-	 */
-	function isPastOffset($offset)	{
-		return strtotime("-$offset hours",time()) > strtotime($this->date . " ". $this->endTime);
-	}
-	/**
-	 * isToday
-	 * 
-	 *  Returns true if an event is occuring today
-	 *
-	 *	@return boolean
-	 */
-	function isToday()	{
-		return date("n/j/Y") == $this->date;
-	}
-	/**
-	 * cowsDecode
-	 *
-	 * Descriptions from Cows tend to be doubly encoded and have &nbsp;s hanging around in them. This function parses that all out.
-	 *
-	 * @param string $str
-	 * @return string
-	 */
-	function cowsDecode($str)	{
-		$str = htmlspecialchars_decode($str);
-		$str = htmlspecialchars_decode($str);
-		$str = strip_tags($str);
-		$str = str_replace('&nbsp;', '', $str);
-		return $str;
 	}
 	/**
 	 * setTitle
@@ -136,6 +101,22 @@ class event	{
 	function setDescription($str)	{
 		$this->description = $this->cowsDecode($str);
 	}
+	/**
+	 * cowsDecode
+	 *
+	 * Descriptions from Cows tend to be doubly encoded and have &nbsp;s hanging around in them. This function parses that all out.
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	function cowsDecode($str)	{
+		$str = htmlspecialchars_decode($str);
+		$str = htmlspecialchars_decode($str);
+		$str = strip_tags($str);
+		$str = str_replace('&nbsp;', '', $str);
+		return $str;
+	}
+	
 	/**
 	 * setTime
 	 * 
@@ -178,22 +159,7 @@ class event	{
 		$val = explode(" ",$str);
 		$this->location = str_replace("_"," ",$val[0]) . ", Room " . $val[1];
 	}
-	/**
-	 * toString
-	 * 
-	 * Composes and returns the html for a single event.
-	 * 
-	 * @return string
-	 */
-	function toString()	{
-		$str = "<div class = 'row'><div class = 'event'>";
-		$str .= "<div class = 'title'>".$this->title."</div>\n";
-		$str .= "<br\><div class = 'other'>";
-		$str .= $this->startTime . ' - ' . $this->endTime . "<br/>\n";
-		$str .= "".$this->location."<br/>\n";
-		$str .= "</div></div></div>\n";
-		return $str;
-	}
+
 	/**
 	 * toArray
 	 * 
@@ -216,32 +182,51 @@ class event	{
 	 * 
 	 * A collection of getters for the private variables
 	 * 
-	 * 
+	 * @codeCoverageIgnore
 	 * 
 	 */
 	function getStartTimestamp() {
 		return strtotime($this->date . " " . $this->startTime);
 	}
-	
+	/**
+	 * @codeCoverageIgnore
+	 */
 	function getEndTimestamp() {
 		return strtotime($this->date . " " . $this->endTime);
 	}
-	
+	/**
+	 * @codeCoverageIgnore
+	 */
 	function getStartTime()	{
 		return $this->startTime;
 	}
+	/**
+	 * @codeCoverageIgnore
+	 */
 	function getEndTime()	{
 		return $this->endTime;
 	}
+	/**
+	 * @codeCoverageIgnore
+	 */
 	function getDate()	{
 		return $this->date;
 	}
+	/**
+	 * @codeCoverageIgnore
+	 */
 	function getTitle()	{
 		return $this->title;
 	}
+	/**
+	 * @codeCoverageIgnore
+	 */
 	function getDescription(){
 		return $this->description;
 	}
+	/**
+	 * @codeCoverageIgnore
+	 */
 	function getLocation()	{
 		return $this->location;
 	}
