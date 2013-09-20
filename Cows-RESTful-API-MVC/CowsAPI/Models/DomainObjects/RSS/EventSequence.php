@@ -58,7 +58,6 @@ class EventSequence	{
 	 * @param array $es
 	 * @param string $startTime
 	 * @param string $endTime
-	 * 
 	 */
 	public static function createSequenceFromArrayTimeBounded($eventArray, $startTime, $endTime)	{
 		$eventSource = new EventSequence($eventArray);
@@ -100,7 +99,7 @@ class EventSequence	{
 	 * setDisplayPast
 	 * 
 	 * sets the variable DisplayPast
-	 * @codeCoverageIgnore
+	 * 
 	 * @param boolean $bool
 	 */
 	function setDisplayPast($bool)	{
@@ -122,14 +121,14 @@ class EventSequence	{
 	 * getList
 	 * 
 	 * returns the internal eventList
-	 * @codeCoverageIgnore
+	 * 
 	 * @return array
 	 */
 	function getList()	{
 		return $this->eventList;
 	}
 	/**
-	 * @codeCoverageIgnore
+	 * 
 	 * @param Event $event
 	 */
 	function addEvent($event)	{
@@ -141,8 +140,8 @@ class EventSequence	{
 	 *
 	 * Actual sort function used by uasort. Sorts by date and time.
 	 *
+	 * 
 	 * @codeCoverageIgnore
-	 *
 	 * @param event $a
 	 * @param event $b
 	 * @return number

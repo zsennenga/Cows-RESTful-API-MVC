@@ -52,7 +52,7 @@ class ServiceFactory	{
 	 * Auth curl such that any requests use whatever auth the user has
 	 * already establised with POST /session
 	 * 
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function authCowsSession()	{
 		$sessionManager = $this->dataMapperFactory->get('SessionManager');
@@ -65,7 +65,7 @@ class ServiceFactory	{
 	 * @param ClassName of a DomainObject Parser $parserClass
 	 * @param String $url
 	 * 
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function grabAndParse($parserClass, $url)	{
 		$document = $this->grabDocument($url);
@@ -76,7 +76,7 @@ class ServiceFactory	{
 	 * Gets a document and returns it
 	 * 
 	 * @param URL $url
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function grabDocument($url)	{
 		$documentGrabber = $this->dataMapperFactory->get('DocumentGrabber');
@@ -90,12 +90,14 @@ class ServiceFactory	{
 	 * Check if cows threw any errors
 	 * 
 	 * @param unknown $doc
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function parseForErrors($doc)	{
 		$cowsErrorParser = $this->domainObjectFactory->get('CowsErrorParser');
 		
 		$cowsErrorParser->parse($doc);
+		
+		return;
 	}
 	
 	/**
@@ -107,7 +109,6 @@ class ServiceFactory	{
 		if (!isset($this->requestParams['tgc'])) throw new ParameterException(ERROR_PARAMETERS, "TGC must be provided to create a ticket", 400);
 		
 		$url = $this->urlBuilder->getCasProxyURL("http://cows.ucdavis.edu/its/Account/LogOn?returnUrl=http://cows.ucdavis.edu/its", $this->requestParams['tgc']);
-		
 		return $this->grabAndParse('CasParser', $url);
 	}
 	
@@ -119,7 +120,7 @@ class ServiceFactory	{
 	private function validateSiteId($siteId)	{
 		$siteValidator = $this->dataMapperFactory->get('SiteValidator');
 		
-		if (!$siteValidator->validSite($siteId))
+		if ($siteId == null || !$siteValidator->validSite($siteId))
 			throw new ParameterException(ERROR_PARAMETERS,"Invalid Site Id", 400);
 	}
 	
@@ -127,16 +128,16 @@ class ServiceFactory	{
 	 * Takes in an event id and gets all the parameters describing it.
 	 * 
 	 * @param Event ID $eventId
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function getEventById($eventId)	{
 		
-		return $this->grabAndParse('SingleEventParser', $this->urlBuilder->getCowsEventIdUrl($siteId,$eventId));
+		return $this->grabAndParse('SingleEventParser', $this->urlBuilder->getCowsEventIdUrl($this->siteId,$eventId));
 	}
 	
 	/**
 	 * Parses the RSS feed described by the passed GET parameters and parses it to an array.
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function getEvents()	{
 		$parser = $this->domainObjectFactory->get("RssParser");
@@ -204,7 +205,7 @@ class ServiceFactory	{
 	 * Scrapes the cows event page and gets all the fields necessary to create an event.
 	 * 
 	 * @return multitype:NULL string
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function getCowsFields()	{
 		
@@ -225,20 +226,21 @@ class ServiceFactory	{
 	/**
 	 * Checks that you're logged into cows.
 	 * @return boolean
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function checkSession()	{
-		$cowsEventDoc->setUrl($this->urlBuilder->getCowsBaseUrl($this->siteId));
-		$cowsDocParser = $this->grabAndParse('FieldParser', $url);
+		$this->authCowsSession();
+		$url = $this->urlBuilder->getCowsEventUrl($this->siteId);
+		$cowsDocParser = $this->dataMapperFactory->get("SiteValidator");
 		
-		return strpos($cowsDocParser->getNodeValue('login'), "Log Off") === false;
+		return $cowsDocParser->checkNoRedirect($url);
 	}
 	
 	/**
 	 * Deletes the event with a given ID.
 	 * 
 	 * @param $eventId $eventId
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function deleteEvent($eventId)	{		
 		
@@ -262,7 +264,7 @@ class ServiceFactory	{
 	 * Creates an event with the given Parameters.
 	 * 
 	 * @param String $params
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function createEvent($params)	{
 		
@@ -298,7 +300,7 @@ class ServiceFactory	{
 	
 	/**
 	 * Logout from cows.
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function destroySession()	{
 		
@@ -306,7 +308,7 @@ class ServiceFactory	{
 		
 		$cowsSessionManager = $this->dataMapperFactory->get('SessionManager');
 		$cowsSessionManager->destroy($this->siteId, $url);
-		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$params);
+		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$this->requestParams	);
 		
 		$this->parseForErrors($doc);
 		
@@ -315,7 +317,7 @@ class ServiceFactory	{
 	 * Login from Cows
 	 * 
 	 * @param CAS Ticket $ticket
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function createSession($ticket)	{
 		
@@ -330,7 +332,7 @@ class ServiceFactory	{
 	/**
 	 * Sets the request parameters
 	 * @param string $p
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function setParams($p)	{
 		$this->requestParams = $p;
@@ -338,7 +340,7 @@ class ServiceFactory	{
 	/**
 	 * Wrapper for object creation
 	 * 
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function getPrivateKey()	{
 		$keyDB = $this->dataMapperFactory->get("KeyTable");
@@ -355,8 +357,8 @@ class ServiceFactory	{
 	 * @return boolean
 	 */
 	public function checkSignature($timeStamp, $signature, $method, $uri)	{
-		
-		if (($privateKey = $this->getPrivateKey()) === false) return false;
+		$privateKey = $this->getPrivateKey();
+		if ($privateKey === false) return false;
 		
 		$authChecker = $this->domainObjectFactory->get('AuthChecker');
 		

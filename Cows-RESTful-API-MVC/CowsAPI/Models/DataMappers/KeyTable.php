@@ -6,7 +6,7 @@ namespace CowsAPI\Models\DataMappers;
  * 
  * 
  * @author its-zach
- * @codeCoverageIgnore
+ * 
  */
 class KeyTable extends GenericDataMapper  {
 	

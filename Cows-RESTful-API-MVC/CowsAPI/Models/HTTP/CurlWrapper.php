@@ -37,20 +37,13 @@ class CurlWrapper implements CurlInterface	{
 	public function execute() {
 		$out = curl_exec($this->handle);
 		if ($out === false) throw new CurlException(ERROR_CURL,"Unable to connect.",500);
-		if (strlen($out) == 0) throw new CurlException(ERROR_CURL, "Response was empty.", 500);
 		return $out;
 	}
 	/**
 	 * 
-	 * @codeCoverageIgnore
+	 * 
 	 */
 	public function getInfo($name) {
 		return curl_getinfo($this->handle, $name);
-	}
-	/**
-	 * @codeCoverageIgnore
-	 */
-	public function close() {
-		curl_close($this->handle);
 	}
 }

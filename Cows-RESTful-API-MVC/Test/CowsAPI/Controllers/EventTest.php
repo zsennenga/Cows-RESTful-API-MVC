@@ -1,5 +1,11 @@
 <?php
 
+use CowsAPI\Models\ServiceFactory;
+use CowsAPI\Utility\URLBuilder;
+use CowsAPI\Models\DataMapperFactory;
+use CowsAPI\Models\DB\DBWrapper;
+use CowsAPI\Models\HTTP\CurlWrapper;
+use CowsAPI\Models\DomainObjectFactory;
 require_once __DIR__ . "../../../../CowsAPI/Data/Config.php";
 
 class EventTest extends \PHPUnit_Framework_TestCase {
@@ -415,6 +421,13 @@ class EventTest extends \PHPUnit_Framework_TestCase {
 	
 		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
 		$this->assertFalse("Unable to delete  event" == $controller->DELETE());
+	}
+	
+	public function testAuthCows()	{
+		$stub = new ServiceFactory(new DomainObjectFactory(), new DataMapperFactory(new DBWrapper(), new CurlWrapper(), 'test'), array(), new URLBuilder(), 'its');
+		
+		$controller = new \CowsAPI\Controllers\Event($this->view, 1, $stub);
+		$controller->authCows();
 	}
 }
 ?>

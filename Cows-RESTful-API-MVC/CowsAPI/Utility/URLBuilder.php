@@ -4,7 +4,7 @@ namespace CowsAPI\Utility;
  * Creates URLs from config defines for use by the models/controllers
  * 
  * @author its-zach
- * @codeCoverageIgnore
+ * 
  */
 class URLBuilder	{
 	
@@ -22,7 +22,7 @@ class URLBuilder	{
 	}
 	
 	public function getCowsEventUrl($siteId)	{
-		return COWS_BASE_PATH . $siteId . COWS_BASE_EVENT_PATH;
+		return COWS_BASE_PATH . $siteId . COWS_BASE_EVENT_PATH . "/create";
 	}
 	
 	public function getCowsLoginUrl($siteId, $ticket)	{

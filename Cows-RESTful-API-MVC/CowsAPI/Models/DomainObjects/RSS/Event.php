@@ -75,8 +75,8 @@ class Event	{
 	 * 
 	 * Checks if a event occured in the past. 
 	 * 
-	 * @return boolean
 	 * @codeCoverageIgnore
+	 * @return boolean
 	 */
 	function isPast()	{
 		return time() > strtotime($this->date . " ". $this->endTime);
@@ -182,8 +182,8 @@ class Event	{
 	 * 
 	 * A collection of getters for the private variables
 	 * 
-	 * @codeCoverageIgnore
 	 * 
+	 * @codeCoverageIgnore
 	 */
 	function getStartTimestamp() {
 		return strtotime($this->date . " " . $this->startTime);

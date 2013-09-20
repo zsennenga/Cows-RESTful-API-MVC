@@ -17,7 +17,7 @@ class CowsErrorParser extends HTMLParser {
 		
 		//Cows likes to throw generic errors sometimes for no reason
 		//Well okay there is usually a reason
-		if (strstr($doc,"Error") !== false || strstr($doc,"error") !== false)	{
+		if (stristr($doc,"Error") !== false)	{
 			throw new CowsException(ERROR_COWS,"COWS Error: Unknown Problem occurred.",400);
 		}
 		return true;

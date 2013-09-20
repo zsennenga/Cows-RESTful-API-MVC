@@ -47,7 +47,7 @@ class Event extends BaseController	{
 	public function POST()	{
 		
 		if (!$this->serviceFactory->checkSession())	{
-			$this->updateView("Invalid session" , 1 , 401);
+			$this->updateView("Invalid session" , ERROR_CAS , 401);
 			return "Invalid session";
 		}
 		try	{

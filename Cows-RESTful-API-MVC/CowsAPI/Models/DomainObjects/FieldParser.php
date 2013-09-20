@@ -7,6 +7,7 @@ class FieldParser extends HTMLParser  {
 	
 	public function parse($doc)	{
 		$this->setupDoc($doc);
+		return $this;
 	}
 	
 	public function getNodeValue($field)	{

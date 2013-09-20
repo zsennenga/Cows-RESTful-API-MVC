@@ -43,8 +43,8 @@ abstract class BaseView	{
 	 */
 	public function render()	{
 		http_response_code($this->responseCode);
-		echo $this->template->parse($this->statusCode,$this->message);
-		$this->log->setResponse($out);
+		$out = $this->template->parse($this->statusCode,$this->message);
+		$this->logger->setResp($out);
 		echo $out;
 	}
 }

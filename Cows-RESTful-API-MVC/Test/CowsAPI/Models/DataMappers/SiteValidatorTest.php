@@ -30,6 +30,11 @@ class SiteValidatorTest extends \PHPUnit_Framework_TestCase {
 	public function testSiteInvalid()	{
 		$this->assertFalse($this->object->validSite("FakeSite"));
 	}
+	
+	public function testRedir()	{
+		$this->assertTrue($this->object->checkNoRedirect("http://cows.ucdavis.edu/"));
+		$this->assertFalse($this->object->checkNoRedirect("http://cows.ucdavis.edu/its/Event"));
+	}
 
 }
 ?>

@@ -7,7 +7,7 @@ class CasParser extends GenericParser {
 
 	public function parse($doc)	{
 		$out = strip_tags($doc);
-		$out = str_replace(' ', '', $out);
+		$out[0] = " ";
 		$out = str_replace('\n','', $out);
 		$out = str_replace('\t','', $out);
 		$out = str_replace('\r', '', $out);

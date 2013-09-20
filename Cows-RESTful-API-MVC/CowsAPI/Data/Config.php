@@ -1,9 +1,9 @@
 <?php
 define("DB_HOST", "localhost");
-define("DB_NAME", "Cows_Rest");
-define("DB_TABLE_KEY", "Cows_Keys");
-define("DB_TABLE_LOG", "Cows_Log");
-define("DB_TABLE_SESSION", "Cows_Session");
+define("DB_NAME", "cows_rest");
+define("DB_TABLE_KEY", "cows_keys");
+define("DB_TABLE_LOG", "cows_log");
+define("DB_TABLE_SESSION", "cows_session");
 define("DB_USER", "root");
 define("DB_PASS", "");
 // DO NOT EDIT BELOW THIS LINE

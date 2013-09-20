@@ -1,22 +1,41 @@
 <?php
 
+use CowsAPI\Utility\HeaderManager;
+use CowsAPI\Exceptions\ParameterException;
+use CowsAPI\Models\DB\DBWrapper;
+use CowsAPI\Utility\Log;
+use CowsAPI\Utility\Router;
+use CowsAPI\Models\HTTP\CurlWrapper;
+use CowsAPI\Models\ServiceFactory;
+use CowsAPI\Models\DomainObjectFactory;
+use CowsAPI\Models\DataMapperFactory;
+use CowsAPI\Utility\URLBuilder;
+use CowsAPI\Views\InvalidAuth;
+use CowsAPI\Views\InvalidSiteId;
+
 require 'vendor/autoload.php';
 require_once 'CowsApi/Data/Config.php';
 
+
+/*$_SERVER['REQUEST_URI'] = "/session/its";
+$_SERVER['REQUEST_METHOD'] = "POST";
+$_SERVER['REMOTE_ADDR'] = "1";
+$_POST['tgc'] = "1";*/
+
 //Handle headers
-$headerManager = new \CowsAPI\Utility\HeaderManager(apache_request_headers());
+$headerManager = new HeaderManager();
 
 //Instantiate all necessary objecst
-$class = "\CowsAPI\\Templates\\".$headerManager->getResponseClass();
+$class = "\\CowsAPI\\Templates\\".$headerManager->getResponseClass();
 $template = new $class();
 
-$db = new \CowsAPI\Models\DB\DBWrapper();
-$log = new \CowsAPI\Utility\Log($db, $table);
+$db = new DBWrapper();
+$log = new Log($db, DB_TABLE_LOG);
 
-$route = new \CowsAPI\Utility\Router($log, file_get_contents("CowsApi/Data/Routes.json"));
+$route = new Router($log, file_get_contents("CowsApi/Data/Routes.json"));
 $route->setRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
-$curl = new \CowsAPI\Models\HTTP\CurlWrapper();
+$curl = new CurlWrapper();
 
 //Set Parameters
 if ($_SERVER['REQUEST_METHOD'] == "GET") 
@@ -25,35 +44,39 @@ else if ($_SERVER['REQUEST_METHOD'] == "POST")
 	$requestParams = $_POST;
 else 
 	$requestParams = array();
-	
 $log->setParams($requestParams);
+
+$parsedAuth = $headerManager->parseAuth();
+$publicKey = $headerManager->getPublicKey();
+
 try	{
-	$serviceFactory = new \CowsAPI\Models\ServiceFactory(
-			 		  	new \CowsAPI\Models\DomainObjectFactory(), 
-					  	new \CowsAPI\Models\DataMapperFactory($db,$curl,$headerManager->getPublicKey()),
+	$serviceFactory = new ServiceFactory(
+			 		  	new DomainObjectFactory(), 
+					  	new DataMapperFactory($db,$curl,$publicKey),
 				   	  	$requestParams,
-					  	new \CowsAPI\Utility\URLBuilder(),
-					  	$route->getParam('siteId'));
+					  	new URLBuilder(),
+					  	$route->getParams('siteId'));
 }
-catch (InvalidArgumentException $e)	{
-	$view = new \CowsAPI\Views\InvalidSiteId($log,$template);
+catch (ParameterException $e)	{
+	$view = new InvalidSiteId($log, $template);
 	$view->render();
+	$log->execute();
 	exit(0);
 }
 
-if ($serviceFactory->checkSignature($headerManager->getTimestamp(), $headerManager->getSignature(), $route->getMethod(), $route->getURI()))	{
+if ($parsedAuth && $serviceFactory->checkSignature($headerManager->getTimestamp(), $headerManager->getSignature(), $route->getMethod(), $route->getURI()))	{
 	$baseClass = $route->getClass();
-	$controllerType = "\\CowsAPI\\Controller\\".$baseClass;
-	$viewType = "\\CowsAPI\\View\\".$baseClass;
+	$controllerType = "\\CowsAPI\\Controllers\\".$baseClass;
+	$viewType = "\\CowsAPI\\Views\\".$baseClass;
 		
 	$view = new $viewType($log,$template);
-	$controller = new $controllerType($view, $route->getParam('eventId'), $serviceFactory);
+	$controller = new $controllerType($view, $route->getParams('eventId'), $serviceFactory);
 	$controller->authCows();
 	$controller->{$route->getMethod()}();
 }
 else {
-	$view = new \CowsAPI\View\InvalidAuth($log, $template);
-	$controller = new \CowsApi\Controller\InvalidAuth($view,null);
+	$view = new InvalidAuth($log, $template);
+	$controller = new \CowsAPI\Controllers\InvalidAuth($view,1,null);
 	$controller->invoke();
 }
 

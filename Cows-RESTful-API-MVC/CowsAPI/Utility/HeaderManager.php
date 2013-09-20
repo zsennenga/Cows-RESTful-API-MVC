@@ -6,7 +6,6 @@ namespace CowsAPI\Utility;
  * Parses values from the headers and then returns them
  * 
  * @author its-zach
- * @codeCoverageIgnore
  */
 class HeaderManager {
 
@@ -16,12 +15,23 @@ class HeaderManager {
 	protected $signature;
 	
 	
-	public function __construct($headers)	{
-		$this->headers = $headers;
-		$this->parseAuthHeader($headers['Authorization']);
+	public function __construct()	{
+		$this->headers = function_exists('apache_request_headers') ? apache_request_headers() : null;
 	}
 	
-	public function parseAuthHeader($auth)	{
+	public function setHeaders($h)	{
+		$this->headers = $h;
+	}
+	
+	public function parseAuth()	{
+		if (!isset($this->headers['Authorization']))	{
+			return false;
+		}
+		$this->parseAuthHeader($this->headers['Authorization']);
+		return true;
+	}
+	
+	private function parseAuthHeader($auth)	{
 		$params = explode("|", $auth);
 		$this->pubKey = $params[0];
 		$this->timeStamp = $params[1];

@@ -5,7 +5,7 @@ namespace CowsAPI\Utility;
  * Logs certain parameters in the database after each request
  * 
  * @author its-zach
- * @codeCoverageIgnore
+ * 
  */
 class Log	{
 	private $dbHandle;
@@ -42,11 +42,8 @@ class Log	{
 	}
 	
 	public function setParams($p)	{
+		unset($p['tgc']);
 		$p = http_build_query($p);
-		if (strpos($p, 'tgc') !== FALSE)	{
-			//Don't wanna store any TGCs
-			$p = preg_replace('/&tgc(\=[^&]*)?(?=&|$)|^tgc(\=[^&]*)?(&|$)/', "", $p,1);
-		}
 		$this->params = $p;
 	}
 	

@@ -95,7 +95,7 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 		$obj = $this->getMockPrivateKey('test');
 		
 		$this->assertTrue($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958e8", "GET", "/"));
-		$this->assertFalse($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958de8", "GET", "/"));
+	   $this->assertFalse($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9sds755b958e8", "GET", "/"));
 	}
 	
 	public function testGetEventId()	{
@@ -107,6 +107,43 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 				'EventTitle' => 'Development Team Meeting',
 				'BuildingAndRoom' => "1605_Tilia!1162"));
 		$this->assertSame(1, $obj->findEventId());
+	}
+	
+	public function getServiceFactory()	{
+		return new ServiceFactory(new DomainObjectFactory(), new DataMapperFactory(new DBWrapper(), new CurlWrapper(), 'test'), array(), new URLBuilder(), 'its');
+	}
+	
+	public function testPrivateKey()	{
+		$sf = $this->getServiceFactory();
+		$this->assertSame('test', $sf->getPrivateKey());
+	}
+	
+	public function testSetParams()	{
+		$sf = $this->getServiceFactory();
+		$sf->setParams(array());
+	}
+	
+	public function testDestroySession()	{
+		$sf = $this->getServiceFactory();
+		$this->setExpectedException('\CowsAPI\Exceptions\CowsException');
+		$sf->destroySession();
+	}
+	
+	public function testGetEventByID()	{
+		$sf = $this->getServiceFactory();
+		$out = $sf->getEventById('123894');
+		
+		$this->assertSame('MTLC Core Meeting', $out['title']);
+	}
+	
+	public function testParseForErrorsNone()	{
+		$doc = file_get_contents(__DIR__ . "/../data/noerrors.html");
+		$sf = $this->getServiceFactory();
+		$sf->parseForErrors($doc);
+	}
+	
+	public function testEvents()	{
+		
 	}
 }
 ?>

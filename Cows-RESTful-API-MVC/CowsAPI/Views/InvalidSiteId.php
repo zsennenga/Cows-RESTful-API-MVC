@@ -7,15 +7,15 @@ namespace CowsAPI\Views;
  * Has no related controller because there's nothing to route/control
  * 
  * @author its-zach
+ * 
  * @codeCoverageIgnore
- *
  */
-class InvalidSiteId {
+class InvalidSiteId extends BaseView {
 
 	public function render()	{
 		http_response_code(400);
-		echo $this->template->parse(ERROR_PARAMETERS,"Invalid Site ID");
-		$this->log->setResponse($out);
+		$out = $this->template->parse(ERROR_PARAMETERS,"Invalid Site ID");
+		$this->logger->setResp($out);
 		echo $out;
 	}
 

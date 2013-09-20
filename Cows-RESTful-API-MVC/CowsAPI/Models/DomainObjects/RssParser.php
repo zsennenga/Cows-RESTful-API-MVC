@@ -20,16 +20,16 @@ class RssParser extends GenericParser  {
 		$this->timeEnd = $end;
 	}
 	public function parse($doc)	{
-		$cows = new cowsRss();
+		$cows = new CowsRss();
 		$cows->setFeedData($doc);
 		$data = $cows->getData();
 		if (isset($this->timeStart))	{
 			$start = strtotime($this->timeStart, time());
 			$end = strtotime($this->timeEnd, time());
-			$sequence = eventSequence::createSequenceFromArrayTimeBounded($data,$start,$end);
+			$sequence = EventSequence::createSequenceFromArrayTimeBounded($data,$start,$end);
 		}
 		else	{
-			$sequence = new eventSequence($data);
+			$sequence = new EventSequence($data);
 		}
 		return $sequence->toArray();
 	}
