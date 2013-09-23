@@ -244,7 +244,7 @@ class ServiceFactory	{
 	 */
 	public function deleteEvent($eventId)	{		
 		
-		$url = $this->urlBuilder->getEventDeleteUrl($eventId);
+		$url = $this->urlBuilder->getEventDeleteUrl($this->siteId, $eventId);
 		$cowsDocParser = $this->grabAndParse('FieldParser', $url);
 		
 		$params = array(
@@ -258,6 +258,7 @@ class ServiceFactory	{
 		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$params);
 		
 		$this->parseForErrors($doc);
+		return true;
 	}
 	
 	/**

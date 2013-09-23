@@ -34,6 +34,7 @@ $log = new Log($db, DB_TABLE_LOG);
 
 $route = new Router($log, file_get_contents("CowsApi/Data/Routes.json"));
 $route->setRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+unset($_GET['r']);
 
 $curl = new CurlWrapper();
 
@@ -77,7 +78,13 @@ if ($parsedAuth && $serviceFactory->checkSignature($headerManager->getTimestamp(
 else {
 	$view = new InvalidAuth($log, $template);
 	$controller = new \CowsAPI\Controllers\InvalidAuth($view,1,null);
-	$controller->invoke();
+	if (!$parsedAuth)	{
+		$message = "Invalid or no Auth Header Found";
+	}
+	else	{
+		$message = "Invalid Signature Route: " . $route->getURI() . " Method: " . $route->getMethod();
+	}
+	$controller->invoke($message);
 }
 
 $view->render();

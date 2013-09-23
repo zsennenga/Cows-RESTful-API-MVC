@@ -69,14 +69,14 @@ class Event extends BaseController	{
 			return $e->getMessage();
 		}
 		
-		$this->updateView($newEventId);
+		$this->updateView(array('eventId' => $newEventId));
 		return $newEventId;
 	}
 	
 	public function DELETE()	{
 		try	{
 			if (!$this->serviceFactory->deleteEvent($this->eventId))	{
-				$this->updateView("Unable to delete event", 1, 403);
+				$this->updateView("Unable to delete event", ERROR_PARAMETERS, 403);
 				return "Unable to delete event";
 			}
 		} catch (\CowsAPI\Exceptions\BaseException $e) {

@@ -41,8 +41,8 @@ class URLBuilder	{
 		return COWS_BASE_PATH . $siteId . COWS_BASE_EVENT_PATH . "/details/" . $eventId;
 	}
 	
-	public function getEventDeleteUrl($siteId)	{
-		return COWS_BASE_PATH . $siteId . COWS_DELETE_PATH;
+	public function getEventDeleteUrl($siteId, $eventId)	{
+		return COWS_BASE_PATH . $siteId . COWS_DELETE_PATH . "/" . $eventId;
 	}
 	
 	public function getCowsBaseUrl($siteId)	{

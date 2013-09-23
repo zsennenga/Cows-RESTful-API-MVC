@@ -59,6 +59,8 @@ class Router {
 		$this->class = "NoRoute";
 		$this->params = array();
 		$this->method = $method;
+		$route = explode("?", $route);
+		if (is_array($route)) $route = $route[0];
 		
 		if ($this->prefix != null) $route = preg_replace("|". preg_quote($this->prefix) . "|iA", "", $route);
 		$this->log->setRoute($method, $route);

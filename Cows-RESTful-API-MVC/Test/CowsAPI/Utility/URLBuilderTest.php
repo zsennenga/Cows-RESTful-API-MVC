@@ -23,7 +23,7 @@ class URLBuilderTest extends PHPUnit_Framework_TestCase {
 			array($u->getCowsLoginUrl('its', 'a'), 'https://cas.ucdavis.edu:8443/cas/login?service=http%3a%2f%2fcows.ucdavis.edu%2fits%2fAccount%2fLogOn%3freturnUrl%3dhttp%3a%2f%2fcows.ucdavis.edu%2fits'),
 			array($u->getCowsLogoutUrl('its'), 'http://cows.ucdavis.edu/its'),
 			array($u->getCowsRssUrl('its', array('1' => '1')), ''),
-			array($u->getEventDeleteUrl('its'), 'https://cas.ucdavis.edu:8443/cas/login?service=http%3a%2f%2fcows.ucdavis.edu%2fAccount%2fLogOn%3fReturnUrl%3d%2fits%2fevent%2fDelete')
+			array($u->getEventDeleteUrl('its', '1'), 'https://cas.ucdavis.edu:8443/cas/login?service=http%3a%2f%2fcows.ucdavis.edu%2fAccount%2fLogOn%3fReturnUrl%3d%2fits%2fevent%2fDelete%2f1')
 		);
 	}
 	/**

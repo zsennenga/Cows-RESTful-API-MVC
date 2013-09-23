@@ -109,8 +109,8 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame(1, $obj->findEventId());
 	}
 	
-	public function getServiceFactory()	{
-		return new ServiceFactory(new DomainObjectFactory(), new DataMapperFactory(new DBWrapper(), new CurlWrapper(), 'test'), array(), new URLBuilder(), 'its');
+	public function getServiceFactory($params = array())	{
+		return new ServiceFactory(new DomainObjectFactory(), new DataMapperFactory(new DBWrapper(), new CurlWrapper(), 'test'), $params, new URLBuilder(), 'its');
 	}
 	
 	public function testPrivateKey()	{
@@ -125,7 +125,6 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testDestroySession()	{
 		$sf = $this->getServiceFactory();
-		$this->setExpectedException('\CowsAPI\Exceptions\CowsException');
 		$sf->destroySession();
 	}
 	
@@ -143,7 +142,40 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 	
 	public function testEvents()	{
-		
+		$sf = $this->getServiceFactory(array('timeStart' => 'today', 'timeEnd' => 'tomorrow'));
+		$sf->getEvents();  
+	}
+	
+	public function testFullMonty()	{
+		$sf = $this->getServiceFactory(array("tgc" => "ENTERAVALIDTGC"));
+		$sf->destroySession();
+		$ticket = $sf->getServiceTicket();
+		$sf->createSession($ticket);
+		$sf->setParams(array(
+	'EventTitle' => 'test',
+	'StartDate' => '10/6/2013',
+	'EndDate' => '10/6/2013',	
+	'StartTime' => "8:00 AM",
+	'EndTime' => "9:00 AM",
+	'DisplayStartTime' => '8:00 AM',
+	'DisplayEndTime' => '9:00 AM',
+	'BuildingAndRoom' => '1590_Tilia!1142',
+	'Categories' => 'Other',
+	'EventTypeName' => 'Maintenance_Other'
+	));
+		$params = $sf->buildEventParams();
+		$id = $sf->createEvent($params);
+		$sf->deleteEvent($id);
+		$sf->destroySession();
+	}
+	
+	public function testCheckSession()	{
+		$sf = $this->getServiceFactory(array("tgc" => "ENTERAVALIDTGC"));
+		$sf->destroySession();
+		$this->assertFalse($sf->checkSession());
+		$sf->createSession($sf->getServiceTicket());
+		$this->assertTrue($sf->checkSession());
+		$sf->destroySession();
 	}
 }
 ?>

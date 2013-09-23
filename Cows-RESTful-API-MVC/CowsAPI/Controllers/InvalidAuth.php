@@ -11,7 +11,7 @@ namespace CowsAPI\Controllers;
  */
 class InvalidAuth extends BaseController {
 	
-	public function invoke()	{
-		$this->updateView("Invalid Auth",403,ERROR_PARAMETERS);
+	public function invoke($message)	{
+		$this->updateView($message,ERROR_PARAMETERS, 403);
 	}
 }
