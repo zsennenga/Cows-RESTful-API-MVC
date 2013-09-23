@@ -32,7 +32,7 @@ class DBWrapper implements DBInterface	{
 		}
 		$this->params = array();
 		if ($stmt->execute() == false) return array();
-		return $stmt->fetch();
+		return @$stmt->fetch();
 	}
 }
 
