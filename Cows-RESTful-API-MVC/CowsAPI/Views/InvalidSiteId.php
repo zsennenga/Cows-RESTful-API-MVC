@@ -13,7 +13,7 @@ namespace CowsAPI\Views;
 class InvalidSiteId extends BaseView {
 
 	public function render()	{
-		http_response_code(400);
+		\http_response_code(400);
 		$out = $this->template->parse(ERROR_PARAMETERS,"Invalid Site ID");
 		$this->logger->setResp($out);
 		echo $out;

@@ -255,7 +255,7 @@ class ServiceFactory	{
 		);
 		
 
-		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$params);
+		$doc = $this->dataMapperFactory->get('BasicPost')->execute($url,$params);
 		
 		$this->parseForErrors($doc);
 		return true;
@@ -270,7 +270,7 @@ class ServiceFactory	{
 	public function createEvent($params)	{
 		
 		$url = $this->urlBuilder->getCowsEventUrl($this->siteId);
-		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$params);
+		$doc = $this->dataMapperFactory->get('BasicPost')->execute($url,$params);
 		
 		$this->parseForErrors($doc);
 		
@@ -309,7 +309,7 @@ class ServiceFactory	{
 		
 		$cowsSessionManager = $this->dataMapperFactory->get('SessionManager');
 		$cowsSessionManager->destroy($this->siteId, $url);
-		$doc = $this->dataMapperFactory->get('basicPost')->execute($url,$this->requestParams	);
+		$doc = $this->dataMapperFactory->get('BasicPost')->execute($url,$this->requestParams	);
 		
 		$this->parseForErrors($doc);
 		

@@ -8,7 +8,7 @@ namespace CowsAPI\Templates;
  * @author its-zach
  *
  */
-class Json extends BaseTemplate {
+class JSON extends BaseTemplate {
 	
 	public function __construct()	{
 		if (isset($_GET['callback'])) {

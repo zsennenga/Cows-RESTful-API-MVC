@@ -14,13 +14,10 @@ use CowsAPI\Views\InvalidAuth;
 use CowsAPI\Views\InvalidSiteId;
 
 require 'vendor/autoload.php';
-require_once 'CowsApi/Data/Config.php';
+require_once 'CowsAPI/Data/Config.php';
 
 
-/*$_SERVER['REQUEST_URI'] = "/session/its";
-$_SERVER['REQUEST_METHOD'] = "POST";
-$_SERVER['REMOTE_ADDR'] = "1";
-$_POST['tgc'] = "1";*/
+date_default_timezone_set ( "America/Los_Angeles");
 
 //Handle headers
 $headerManager = new HeaderManager();
@@ -32,7 +29,7 @@ $template = new $class();
 $db = new DBWrapper();
 $log = new Log($db, DB_TABLE_LOG);
 
-$route = new Router($log, file_get_contents("CowsApi/Data/Routes.json"));
+$route = new Router($log, file_get_contents("CowsAPI/Data/Routes.json"));
 $route->setRoute($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 unset($_GET['r']);
 

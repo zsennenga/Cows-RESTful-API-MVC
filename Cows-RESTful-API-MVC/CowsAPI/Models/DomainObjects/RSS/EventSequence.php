@@ -6,8 +6,6 @@
  */
 namespace CowsAPI\Models\DomainObjects\RSS;
 
-require_once("CowsRSS.php");
-require_once("Event.php");
 /**
  * eventSequence
  * 
