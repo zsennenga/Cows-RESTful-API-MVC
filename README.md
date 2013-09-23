@@ -1,4 +1,4 @@
-Cows-RESTful-API
+Cows-RESTful-API-MVC
 ================
 
 A RESTful api used to interact with the UC Davis COmmunity Web Scheduler
