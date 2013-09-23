@@ -17,17 +17,18 @@ class AuthCheckerTest extends \PHPUnit_Framework_TestCase {
 	}
 	
 	public function testSignatureGeneration()	{
-		$this->assertTrue($this->object->checkSignature("6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958e8", 
+		$t = time();
+		$this->assertFalse($this->object->checkSignature("6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958e8", 
 											"test",
-											"0123456",
+											$t,
 											"GET",
 											"/",
 											"test=t"));
-		$this->assertFalse($this->object->checkSignature("6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958e8", 
+		$this->assertTrue($this->object->checkSignature(hash_hmac('sha256','GET/test=t'.$t,'test'), 
 											"test",
-											"0123456",
+											$t,
 											"GET",
-											"/different",
+											"/",
 											"test=t"));
 	}
 	

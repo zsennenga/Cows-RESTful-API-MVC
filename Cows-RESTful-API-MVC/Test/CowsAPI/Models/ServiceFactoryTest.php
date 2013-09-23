@@ -93,9 +93,9 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testCheckSignature()	{
 		$obj = $this->getMockPrivateKey('test');
-		
+		$this->setExpectedException("\CowsAPI\Exceptions\ParameterException");
 		$this->assertTrue($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9755b958e8", "GET", "/"));
-	   $this->assertFalse($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9sds755b958e8", "GET", "/"));
+	  	$this->assertFalse($obj->checkSignature("0123456", "6e8389389567e2068750f6d4195c08900dfd58adb84647a1ebce3b9sds755b958e8", "GET", "/"));
 	}
 	
 	public function testGetEventId()	{
